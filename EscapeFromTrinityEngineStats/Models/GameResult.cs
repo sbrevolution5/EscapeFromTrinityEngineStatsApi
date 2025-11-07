@@ -11,6 +11,7 @@ namespace StatisticsApi.Models
         public virtual List<PassiveRecord> Passives { get; set; }
         public virtual List<CharacterInstance> Characters { get; set; }
         public virtual List<DeckRecord> Decks { get; set; }
+        public virtual List<RoomRecord> Rooms { get; set; }
         public int RemainingGold;
         public int RemainingTeamwork;
         public string RunPerk;
