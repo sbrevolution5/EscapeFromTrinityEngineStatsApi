@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EscapeFromTrinityEngineStats.Models;
+using Microsoft.EntityFrameworkCore;
 using StatisticsApi.Models;
 using StatisticsApi.Models.Instances;
 

@@ -1,6 +1,6 @@
-﻿using StatisticsApi.Models.Instances;
+﻿using EscapeFromTrinityEngineStats.Models.Instances;
 
-namespace StatisticsApi.Models
+namespace EscapeFromTrinityEngineStats.Models
 {
     public class EventRecord
     {

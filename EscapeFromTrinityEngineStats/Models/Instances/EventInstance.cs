@@ -1,4 +1,4 @@
-﻿namespace StatisticsApi.Models.Instances
+﻿namespace EscapeFromTrinityEngineStats.Models.Instances
 {
     public class EventInstance
     {

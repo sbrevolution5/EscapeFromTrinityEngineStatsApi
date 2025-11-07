@@ -1,5 +1,6 @@
-﻿using StatisticsApi.Models.Instances;
-namespace StatisticsApi.Models
+﻿using EscapeFromTrinityEngineStats.Models;
+using EscapeFromTrinityEngineStats.Models.Instances;
+namespace EscapeFromTrinityEngineStats.Models
 {
     public class GameResult
     {

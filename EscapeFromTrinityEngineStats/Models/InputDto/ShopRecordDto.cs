@@ -1,5 +1,5 @@
-﻿using StatisticsApi.Models;
-using StatisticsApi.Models.Instances;
+﻿using EscapeFromTrinityEngineStats.Models;
+using EscapeFromTrinityEngineStats.Models.Instances;
 using System;
 using System.Collections.Generic;
 using System.Linq;

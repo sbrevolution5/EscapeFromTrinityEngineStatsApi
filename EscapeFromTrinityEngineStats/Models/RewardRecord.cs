@@ -1,4 +1,4 @@
-﻿namespace StatisticsApi.Models
+﻿namespace EscapeFromTrinityEngineStats.Models
 {
     public class RewardRecord
     {

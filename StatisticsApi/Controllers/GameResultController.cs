@@ -1,6 +1,6 @@
+using EscapeFromTrinityEngineStats.Models;
 using Microsoft.AspNetCore.Mvc;
 using StatisticsApi.Context;
-using StatisticsApi.Models;
 
 namespace StatisticsApi.Controllers
 {
