@@ -8,5 +8,8 @@ namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
     internal class EventRecordDto
     {
+        public string Name;
+        public int TeamworkOnEnter;
+        public int ChoiceSelected;
     }
 }
