@@ -11,5 +11,9 @@ namespace EscapeFromTrinityEngineStats.Models.InputDto
         public int GoldGained;
         public virtual List<CardChoiceRecordDto> CardChoiceRecordDtos { get; set; }
         public virtual List<PassiveRecordDto> PassiveRecordDtos { get; set; }
+        public virtual List<CardRecordDto> UpgradedCards { get; set; }
+        public virtual List<CardRecordDto> RemovedCards { get; set; }
+        public virtual List<CardRecordDto> GivenTradeCards { get; set; }
+        public virtual List<CardRecordDto> RecievedTradeCards { get; set; }
     }
 }
