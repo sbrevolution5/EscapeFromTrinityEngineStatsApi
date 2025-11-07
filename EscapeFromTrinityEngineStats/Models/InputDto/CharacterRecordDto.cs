@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
-    internal class CharacterRecordDto
+    public class CharacterRecordDto
     {
         public string Name { get; set; }
         public virtual List<CardRecordDto> DeckRecord { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
-    internal class PassiveRecordDto
+    public class PassiveRecordDto
     {
         public int PartySlot;
         public string Name;

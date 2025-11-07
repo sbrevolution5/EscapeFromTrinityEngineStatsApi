@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
-    internal class EventRecordDto
+    public class EventRecordDto
     {
         public string Name;
         public int TeamworkOnEnter;

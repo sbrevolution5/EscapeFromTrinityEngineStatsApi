@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
-    internal class RewardRecordDto
+    public class RewardRecordDto
     {
         public int GoldGained;
         public virtual List<CardChoiceRecordDto> CardChoiceRecordDtos { get; set; }

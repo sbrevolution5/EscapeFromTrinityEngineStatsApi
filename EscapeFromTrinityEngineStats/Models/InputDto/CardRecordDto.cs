@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
-    internal class CardRecordDto
+    public class CardRecordDto
     {
         public string Name;
         public int PartySlot = -1;

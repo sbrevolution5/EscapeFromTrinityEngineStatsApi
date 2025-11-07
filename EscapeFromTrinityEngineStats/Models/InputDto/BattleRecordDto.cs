@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
-    internal class BattleRecordDto
+    public class BattleRecordDto
     {
         public string Name { get; set; }
         public int FloorEncountered;

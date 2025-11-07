@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
-    internal class ShopRecordDto
+    public class ShopRecordDto
     {
         public int GoldEntered { get; set; }
         public virtual List<string> AffordableCards { get; set; }

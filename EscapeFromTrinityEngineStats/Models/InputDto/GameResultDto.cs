@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
-    internal class GameResultDto
+    public class GameResultDto
     {
         public bool Win;
         public int PlayerId;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
-    internal class RoomRecordDto
+    public class RoomRecordDto
     {
         public int Id { get; set; }
         public int FloorNumber { get; set; }
