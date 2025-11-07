@@ -1,7 +1,6 @@
 ﻿using EscapeFromTrinityEngineStats.Models;
+using EscapeFromTrinityEngineStats.Models.Instances;
 using Microsoft.EntityFrameworkCore;
-using StatisticsApi.Models;
-using StatisticsApi.Models.Instances;
 
 namespace StatisticsApi.Context
 {
