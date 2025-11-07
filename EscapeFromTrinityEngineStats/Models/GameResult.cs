@@ -9,11 +9,12 @@ namespace StatisticsApi.Models
         public int RoomsCompleted;
         public int LevelsCompleted;
         public virtual List<PassiveRecord> Passives { get; set; }
-        public virtual List<CharacterInstance> Characters { get; set; }
-        public virtual List<DeckRecord> Decks { get; set; }
+        public virtual List<CharacterRecord> Characters { get; set; }
         public virtual List<RoomRecord> Rooms { get; set; }
         public int RemainingGold;
         public int RemainingTeamwork;
+        public int TotalGoldEarned;
+        public int TotalTeamworkEarned;
         public string RunPerk;
         public BattleRecord RunEndingBattle;
     }

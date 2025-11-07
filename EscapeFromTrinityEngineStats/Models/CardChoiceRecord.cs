@@ -9,6 +9,7 @@ namespace StatisticsApi.Models
         public virtual CardInstance CardPicked { get; set; }
         public int LevelNumber;
         public int FloorNumber;
+        public int RerollCount;
         public virtual List<CardInstance> RerolledCards { get; set; }
         public bool UpgradePicked;
         public bool DuplicatePicked;
