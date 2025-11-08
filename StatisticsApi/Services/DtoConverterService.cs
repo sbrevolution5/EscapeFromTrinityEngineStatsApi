@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace StatisticsApi.Services
 {
-    public class DtoConverterService
+    public class DtoConverterService :IDtoConverterService
     {
         private readonly StatisticsDbContext _context;
         public HashSet<CardInstance> CardInstances { get; private set; } = new HashSet<CardInstance>();

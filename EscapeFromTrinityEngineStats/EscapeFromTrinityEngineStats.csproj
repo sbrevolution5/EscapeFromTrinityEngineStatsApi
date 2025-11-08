@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 	<PropertyGroup>
-		<Version>1.4.1</Version>
+		<Version>1.4.2</Version>
 	</PropertyGroup>
 	<ItemGroup>
 	  <Compile Remove="Models\Relationships\NewFolder\**" />
