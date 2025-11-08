@@ -2,7 +2,7 @@
 
 namespace StatisticsApi.Data
 {
-    public static class Datautility
+    public static class DataUtility
     {
         public static string GetConnectionString(IConfiguration configuration)
         {
