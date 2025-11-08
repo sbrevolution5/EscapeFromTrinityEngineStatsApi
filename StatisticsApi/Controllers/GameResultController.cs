@@ -1,4 +1,5 @@
 using EscapeFromTrinityEngineStats.Models;
+using EscapeFromTrinityEngineStats.Models.InputDto;
 using Microsoft.AspNetCore.Mvc;
 using StatisticsApi.Context;
 
@@ -19,8 +20,9 @@ namespace StatisticsApi.Controllers
             _dbContext = dbContext;
         }
         [HttpPost]
-        public void PostGameResult(GameResult result)
+        public void PostGameResult(GameResultDto input)
         {
+            var result = new GameResult();
             _dbContext.GameResults.Add(result);
         }
 

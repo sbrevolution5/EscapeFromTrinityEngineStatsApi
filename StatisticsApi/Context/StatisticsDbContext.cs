@@ -137,6 +137,10 @@ namespace StatisticsApi.Context
         }
         public DbSet<GameResult> GameResults { get; set; }
         public DbSet<CharacterInstance> CharacterInstances { get; set; }
+        public DbSet<CardInstance> CardInstances { get; set; }
+        public DbSet<EventInstance> EventInstances { get; set; }
+        public DbSet<PassiveInstance> PassiveInstances { get; set; }
+        public DbSet<BattleInstance> BattleInstances { get; set; }
         public DbSet<CardRecord> CardRecords { get; set; }
         public DbSet<PassiveRecord> PassiveRecords { get; set; }
         public DbSet<RewardRecord> RewardRecords { get; set; }
