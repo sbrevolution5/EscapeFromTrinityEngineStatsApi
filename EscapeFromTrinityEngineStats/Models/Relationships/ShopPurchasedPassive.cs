@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EscapeFromTrinityEngineStats.Models.Instances;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace EscapeFromTrinityEngineStats.Models.Relationships
         public int ShopRecordId { get; set; }
         public ShopRecord ShopRecord { get; set; }
 
-        public int PassiveRecordId { get; set; }
-        public PassiveRecord PassiveRecord { get; set; }
+        public int PassiveInstanceId { get; set; }
+        public PassiveInstance PassiveInstance { get; set; }
     }
 }
