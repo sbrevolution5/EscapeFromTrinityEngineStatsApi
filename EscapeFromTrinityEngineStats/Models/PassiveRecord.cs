@@ -4,7 +4,7 @@ namespace EscapeFromTrinityEngineStats.Models
 {
     public class PassiveRecord
     {
-        public int Id;
+        public int Id { get; set; }
         public virtual PassiveInstance PassiveInstance { get; set; }
         public int PartySlot = -1;
     }

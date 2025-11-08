@@ -4,6 +4,7 @@ namespace EscapeFromTrinityEngineStats.Models
 {
     public class GameResult
     {
+        public int Id { get; set; }
         public bool Win;
         public int PlayerId;
         public string GameVersion = "";

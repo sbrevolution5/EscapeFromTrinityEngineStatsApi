@@ -23,7 +23,116 @@ namespace StatisticsApi.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<ShopAffordableCard>(e =>
+            {
+                e.HasKey(e => new { e.ShopRecordId, e.CardInstanceId });
+                e.HasOne(e => e.ShopRecord)
+                .WithMany(s => s.AffordableCards)
+                .HasForeignKey(e => e.ShopRecordId);
+                e.HasOne(e => e.CardInstance)
+                .WithMany()
+                .HasForeignKey(e => e.CardInstanceId);
+            });
+            modelBuilder.Entity<ShopAffordablePassive>(e =>
+            {
+                e.HasKey(e => new { e.ShopRecordId, e.PassiveRecordId });
+                e.HasOne(e => e.ShopRecord)
+                .WithMany(s => s.AffordablePassives)
+                .HasForeignKey(e => e.ShopRecordId);
+                e.HasOne(e => e.PassiveRecord)
+                .WithMany()
+                .HasForeignKey(e => e.PassiveRecordId);
+            });
+            modelBuilder.Entity<ShopPurchasedCard>(e =>
+            {
+                e.HasKey(e => new { e.ShopRecordId, e.CardInstanceId });
+                e.HasOne(e => e.ShopRecord)
+                .WithMany(s => s.PurchasedCards)
+                .HasForeignKey(e => e.ShopRecordId);
+                e.HasOne(e => e.CardInstance)
+                .WithMany()
+                .HasForeignKey(e => e.CardInstanceId);
+            });
+            modelBuilder.Entity<ShopPurchasedPassive>(e =>
+            {
+                e.HasKey(e => new { e.ShopRecordId, e.PassiveRecordId });
+                e.HasOne(e => e.ShopRecord)
+                .WithMany(s => s.PurchasedPassives)
+                .HasForeignKey(e => e.ShopRecordId);
+                e.HasOne(e => e.PassiveRecord)
+                .WithMany()
+                .HasForeignKey(e => e.PassiveRecordId);
+            });
+            modelBuilder.Entity<RewardGivenTradeCards>(e =>
+            {
+                e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
+                e.HasOne(e => e.RewardRecord)
+                .WithMany(s => s.GivenTradeCards)
+                .HasForeignKey(e => e.CardRecordId);
+                e.HasOne(e => e.CardRecord)
+                .WithMany()
+                .HasForeignKey(e => e.CardRecordId);
+            });
+            modelBuilder.Entity<RewardJunkCards>(e =>
+            {
+                e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
+                e.HasOne(e => e.RewardRecord)
+                .WithMany(s => s.JunkRewards)
+                .HasForeignKey(e => e.CardRecordId);
+                e.HasOne(e => e.CardRecord)
+                .WithMany()
+                .HasForeignKey(e => e.CardRecordId);
+            });
+            modelBuilder.Entity<RewardUpgradedCards>(e =>
+            {
+                e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
+                e.HasOne(e => e.RewardRecord)
+                .WithMany(s => s.UpgradedCards)
+                .HasForeignKey(e => e.CardRecordId);
+                e.HasOne(e => e.CardRecord)
+                .WithMany()
+                .HasForeignKey(e => e.CardRecordId);
+            });
+            modelBuilder.Entity<RewardRecievedTradeCards>(e =>
+            {
+                e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
+                e.HasOne(e => e.RewardRecord)
+                .WithMany(s => s.RecievedTradeCards)
+                .HasForeignKey(e => e.CardRecordId);
+                e.HasOne(e => e.CardRecord)
+                .WithMany()
+                .HasForeignKey(e => e.CardRecordId);
+            });
+            modelBuilder.Entity<RewardRemovedCards>(e =>
+            {
+                e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
+                e.HasOne(e => e.RewardRecord)
+                .WithMany(s => s.RemovedCards)
+                .HasForeignKey(e => e.CardRecordId);
+                e.HasOne(e => e.CardRecord)
+                .WithMany()
+                .HasForeignKey(e => e.CardRecordId);
+            });
+            modelBuilder.Entity<CardChoiceCardInstance>(e =>
+            {
+                e.HasKey(e => new { e.CardChoiceRecordId, e.CardInstanceId});
+                e.HasOne(e => e.CardChoiceRecord)
+                .WithMany(s => s.CardChoices)
+                .HasForeignKey(e => e.CardInstanceId);
+                e.HasOne(e => e.CardInstance)
+                .WithMany()
+                .HasForeignKey(e => e.CardInstanceId);
+            });
+            modelBuilder.Entity<RerolledCardCardInstance>(e =>
+            {
+                e.HasKey(e => new { e.CardChoiceRecordId, e.CardInstanceId});
+                e.HasOne(e => e.CardChoiceRecord)
+                .WithMany(s => s.RerolledCards)
+                .HasForeignKey(e => e.CardInstanceId);
+                e.HasOne(e => e.CardInstance)
+                .WithMany()
+                .HasForeignKey(e => e.CardInstanceId);
+            });
 
         }
         public DbSet<GameResult> GameResults { get; set; }
@@ -38,5 +147,13 @@ namespace StatisticsApi.Context
         public DbSet<ShopPurchasedCard> ShopPurchasedCards { get; set; }
         public DbSet<ShopAffordablePassive> ShopAffordablePassives { get; set; }
         public DbSet<ShopPurchasedPassive> ShopPurchasedPassives { get; set; }
+        public DbSet<RewardGivenTradeCards> RewardGivenTradeCards { get;set; }
+        public DbSet<RewardJunkCards> RewardJunkCards { get; set; }
+        public DbSet<RewardRecievedTradeCards> RewardRecievedTradeCards { get; set; }
+        public DbSet<RewardRemovedCards> RewardRemovedCards { get; set; }
+        public DbSet<RewardUpgradedCards> RewardUpgradedCards { get; set; }
+        public DbSet<CardChoiceCardInstance> CardChoiceCards { get; set; }
+        public DbSet<RerolledCardCardInstance> RerolledCardCardInstances { get; set; }
+
     }
 }
