@@ -1,4 +1,5 @@
 ﻿using EscapeFromTrinityEngineStats.Models.Instances;
+using EscapeFromTrinityEngineStats.Models.Relationships;
 
 namespace EscapeFromTrinityEngineStats.Models
 {
@@ -6,7 +7,7 @@ namespace EscapeFromTrinityEngineStats.Models
     {
         public int Id { get; set; }
         public int GoldEntered { get; set; }
-        public virtual List<CardInstance> AffordableCards { get; set; }
+        public virtual List<ShopAffordableCard> AffordableCards { get; set; }
         public virtual List<CardInstance> PurchasedCards { get; set; }
         public virtual List<PassiveInstance> AffordablePassives { get; set; }
         public virtual List<PassiveInstance> PurchasedPassives { get; set; }

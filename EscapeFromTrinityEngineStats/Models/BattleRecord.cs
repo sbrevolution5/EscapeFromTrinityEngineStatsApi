@@ -1,4 +1,6 @@
 ﻿using EscapeFromTrinityEngineStats.Models.Instances;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EscapeFromTrinityEngineStats.Models
 {
