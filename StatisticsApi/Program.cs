@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using StatisticsApi.Context;
 using StatisticsApi.Data;
+using StatisticsApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<StatisticsDbContext>(options => options.UseNpgsql(DataUtility.GetConnectionString(builder.Configuration)));
-
+builder.Services.AddScoped<IDtoConverterService,DtoConverterService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

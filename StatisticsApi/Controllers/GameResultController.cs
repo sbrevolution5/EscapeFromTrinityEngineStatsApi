@@ -2,6 +2,7 @@ using EscapeFromTrinityEngineStats.Models;
 using EscapeFromTrinityEngineStats.Models.InputDto;
 using Microsoft.AspNetCore.Mvc;
 using StatisticsApi.Context;
+using StatisticsApi.Services;
 
 namespace StatisticsApi.Controllers
 {
@@ -10,19 +11,20 @@ namespace StatisticsApi.Controllers
     public class GameResultController : ControllerBase
     {
         private readonly StatisticsDbContext _dbContext;
-
+        private readonly IDtoConverterService _dtoConverterService;
 
         private readonly ILogger<GameResultController> _logger;
 
-        public GameResultController(ILogger<GameResultController> logger, StatisticsDbContext dbContext)
+        public GameResultController(ILogger<GameResultController> logger, StatisticsDbContext dbContext, IDtoConverterService dtoConverterService)
         {
             _logger = logger;
             _dbContext = dbContext;
+            _dtoConverterService = dtoConverterService;
         }
         [HttpPost]
-        public void PostGameResult(GameResultDto input)
+        public async Task PostGameResultAsync(GameResultDto input)
         {
-            var result = new GameResult();
+            var result = await _dtoConverterService.GameResultFromDtoAsync(input);
             _dbContext.GameResults.Add(result);
         }
 
