@@ -1,5 +1,6 @@
 using EscapeFromTrinityEngineStats.Models;
 using EscapeFromTrinityEngineStats.Models.InputDto;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StatisticsApi.Context;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace StatisticsApi.Controllers
 {
     [ApiController]
+    
     [Route("[controller]")]
     public class GameResultController : ControllerBase
     {
@@ -24,6 +26,7 @@ namespace StatisticsApi.Controllers
             _dtoConverterService = dtoConverterService;
         }
         [HttpPost]
+        [EnableCors()]
         public async Task PostGameResultAsync([FromBody] GameResultDto input)
         {
             var result = await _dtoConverterService.GameResultFromDtoAsync(input);

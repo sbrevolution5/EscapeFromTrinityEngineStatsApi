@@ -1,4 +1,7 @@
-﻿using Npgsql;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using StatisticsApi.Context;
 
 namespace StatisticsApi.Data
 {
@@ -28,6 +31,14 @@ namespace StatisticsApi.Data
                 SslMode = SslMode.Require
             };
             return builder.ToString();
+        }
+        public static async Task ManageDataAsync(IHost host) {
+            using var svcScope = host.Services.CreateScope();
+            var svcProvider = svcScope.ServiceProvider;
+            //Service: An instance of RoleManager
+            var dbContextSvc = svcProvider.GetRequiredService<StatisticsDbContext>();
+            //TsTEP 1: This is the programmatic equivalent to Update-Database
+            await dbContextSvc.Database.MigrateAsync();
         }
     }
 }
