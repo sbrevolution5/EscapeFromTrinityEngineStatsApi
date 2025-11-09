@@ -16,7 +16,7 @@ namespace EscapeFromTrinityEngineStats.Models.InputDto
         public virtual List<string> AffordablePassives { get; set; }
         public virtual List<string> PurchasedPassives { get; set; }
         public int GoldSpent { get; set; }
-        public bool UpgradePurchased;
-        public CardRecordDto? UpgradedCard;
+        public bool UpgradePurchased { get; set; }
+        public CardRecordDto? UpgradedCard { get; set; }
     }
 }

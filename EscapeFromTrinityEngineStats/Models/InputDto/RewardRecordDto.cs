@@ -8,7 +8,7 @@ namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
     public class RewardRecordDto
     {
-        public int GoldGained;
+        public int GoldGained { get; set; }
         public virtual List<CardChoiceRecordDto> CardChoiceRecordDtos { get; set; }
         public virtual List<PassiveRecordDto> PassiveRecordDtos { get; set; }
         public virtual List<CardRecordDto> UpgradedCards { get; set; }

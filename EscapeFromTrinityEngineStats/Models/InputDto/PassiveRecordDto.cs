@@ -8,7 +8,7 @@ namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
     public class PassiveRecordDto
     {
-        public int PartySlot;
-        public string Name;
+        public int PartySlot { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace StatisticsApi.Controllers
             _dtoConverterService = dtoConverterService;
         }
         [HttpPost]
-        public async Task PostGameResultAsync(GameResultDto input)
+        public async Task PostGameResultAsync([FromBody] GameResultDto input)
         {
             var result = await _dtoConverterService.GameResultFromDtoAsync(input);
             _dbContext.GameResults.Add(result);

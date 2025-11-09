@@ -8,7 +8,7 @@ namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
     public class CardRecordDto
     {
-        public string Name;
-        public int PartySlot = -1;
+        public string Name { get; set; }
+        public int PartySlot { get; set; } = -1;
     }
 }
