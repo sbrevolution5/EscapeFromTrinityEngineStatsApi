@@ -26,7 +26,6 @@ namespace StatisticsApi.Controllers
             _dtoConverterService = dtoConverterService;
         }
         [HttpPost]
-        [EnableCors()]
         public async Task PostGameResultAsync([FromBody] GameResultDto input)
         {
             var result = await _dtoConverterService.GameResultFromDtoAsync(input);
