@@ -278,7 +278,8 @@ namespace StatisticsApi.Services
 
             var instance = BattleInstances
                 .FirstOrDefault(c => c.Name == name);
-
+            if (instance != null)
+                return instance;
             instance ??= new BattleInstance()
             {
                 Name = name
@@ -304,7 +305,8 @@ namespace StatisticsApi.Services
 
             var instance = EventInstances
                 .FirstOrDefault(c => c.Name == name);
-
+            if (instance != null)
+                return instance;
             instance ??= new EventInstance
             {
                 Name = name
@@ -480,7 +482,8 @@ namespace StatisticsApi.Services
 
             var instance = PassiveInstances
                 .FirstOrDefault(c => c.Name == name);
-
+            if (instance != null)
+                return instance;
             instance ??= new PassiveInstance
             {
                 Name = name
@@ -497,7 +500,8 @@ namespace StatisticsApi.Services
 
             var instance = CardInstances
                 .FirstOrDefault(c => c.Name == name);
-
+            if (instance != null)
+                return instance;
             instance ??= new CardInstance
             {
                 Name = name

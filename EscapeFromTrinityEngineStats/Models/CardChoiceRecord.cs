@@ -8,13 +8,13 @@ namespace EscapeFromTrinityEngineStats.Models
         public int Id { get; set; }
         public virtual List<CardChoiceCardInstance> CardChoices { get; set; }
         public virtual CardInstance CardPicked { get; set; }
-        public int LevelNumber;
-        public int FloorNumber;
-        public int RerollCount;
+        public int LevelNumber { get; set; }
+        public int FloorNumber { get; set; }
+        public int RerollCount { get; set; }
         public virtual List<RerolledCardCardInstance> RerolledCards { get; set; }
-        public bool UpgradePicked;
-        public bool DuplicatePicked;
-        public int TeamworkSpent;
+        public bool UpgradePicked { get; set; }
+        public bool DuplicatePicked { get; set; }
+        public int TeamworkSpent { get; set; }
 
     }
 }

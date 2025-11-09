@@ -6,7 +6,7 @@ namespace EscapeFromTrinityEngineStats.Models
     {
         public int Id {  get; set; }
         public virtual EventInstance EventInstance { get; set; }
-        public int TeamworkOnEnter;
-        public int ChoiceSelected;
+        public int TeamworkOnEnter { get; set; }
+        public int ChoiceSelected { get; set; }
     }
 }

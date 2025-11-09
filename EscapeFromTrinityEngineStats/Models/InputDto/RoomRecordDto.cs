@@ -8,7 +8,6 @@ namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
     public class RoomRecordDto
     {
-        public int Id { get; set; }
         public int FloorNumber { get; set; }
         public int LevelNumber { get; set; }
         public virtual BattleRecordDto? BattleRecordDto { get; set; }

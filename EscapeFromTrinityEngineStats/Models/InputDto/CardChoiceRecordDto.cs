@@ -9,7 +9,6 @@ namespace EscapeFromTrinityEngineStats.Models.InputDto
 {
     public class CardChoiceRecordDto
     {
-        public int Id { get; set; }
         public virtual List<string> CardChoices { get; set; }
         public virtual string CardPicked { get; set; }
         public int LevelNumber;

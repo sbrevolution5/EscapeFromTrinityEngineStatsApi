@@ -1,8 +1,10 @@
 using EscapeFromTrinityEngineStats.Models;
 using EscapeFromTrinityEngineStats.Models.InputDto;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StatisticsApi.Context;
 using StatisticsApi.Services;
+using System.Threading.Tasks;
 
 namespace StatisticsApi.Controllers
 {
@@ -26,12 +28,13 @@ namespace StatisticsApi.Controllers
         {
             var result = await _dtoConverterService.GameResultFromDtoAsync(input);
             _dbContext.GameResults.Add(result);
+            await _dbContext.SaveChangesAsync();
         }
 
         [HttpGet]
-        public IEnumerable<GameResult> GetAllResults()
+        public async Task<IEnumerable<GameResult>> GetAllResults()
         {
-            List<GameResult> res = new List<GameResult>();
+            List<GameResult> res = await _dbContext.GameResults.ToListAsync();
             return res;
         }
     }

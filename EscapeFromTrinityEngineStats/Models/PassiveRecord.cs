@@ -6,6 +6,6 @@ namespace EscapeFromTrinityEngineStats.Models
     {
         public int Id { get; set; }
         public virtual PassiveInstance PassiveInstance { get; set; }
-        public int PartySlot = -1;
+        public int PartySlot { get; set; } = -1;
     }
 }
