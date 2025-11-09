@@ -9,7 +9,7 @@ namespace EscapeFromTrinityEngineStats.Models.InputDto
     public class CharacterRecordDto
     {
         public string Name { get; set; }
-        public virtual List<CardRecordDto> DeckRecord { get; set; }
+        public virtual List<CardRecordDto> DeckRecord { get; set; } = [];
         public int PartySlot { get; set; }
     }
 }

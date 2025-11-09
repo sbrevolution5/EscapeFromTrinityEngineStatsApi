@@ -38,6 +38,9 @@ namespace StatisticsApi.Controllers
         {
             List<GameResult> res = await _dbContext.GameResults
                 .Include(g=>g.Rooms)
+                .ThenInclude(r=>r.ShopRecord)
+                .ThenInclude(r=>r.AffordableCards)
+                .ThenInclude(r=>r.CardInstance)
                 .Include(g=>g.Passives)
                 .Include(g=>g.Characters)
                 .ThenInclude(c=>c.DeckRecord)
