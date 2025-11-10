@@ -13,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<StatisticsDbContext>(options => options.UseNpgsql(DataUtility.GetConnectionString(builder.Configuration)));
 builder.Services.AddScoped<IDtoConverterService, DtoConverterService>();
+builder.Services.AddScoped<IFetchDataService, FetchDataService>();
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
