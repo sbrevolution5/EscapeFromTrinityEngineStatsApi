@@ -36,7 +36,7 @@ namespace StatisticsApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<GameResult>> GetAllResults()
         {
-            List<GameResult> res = await _dbContext.GameResults
+            List<GameResult> res = await _dataService._dbContext.GameResults
                 .Include(g=>g.Rooms)
                 .ThenInclude(r=>r.ShopRecord)
                 .ThenInclude(r=>r.AffordableCards)

@@ -10,9 +10,9 @@ namespace EscapeFromTrinityEngineStats.Models
         public string GameVersion { get; set; }
         public int RoomsCompleted { get; set; }
         public int LevelsCompleted { get; set; }
-        public virtual List<PassiveRecord> Passives { get; set; }
-        public virtual List<CharacterRecord> Characters { get; set; }
-        public virtual List<RoomRecord> Rooms { get; set; }
+        public virtual List<PassiveRecord> Passives { get; set; } = [];
+        public virtual List<CharacterRecord> Characters { get; set; } = [];
+        public virtual List<RoomRecord> Rooms { get; set; } = [];
         public int RemainingGold { get; set; }
         public int RemainingTeamwork { get; set; }
         public int TotalGoldEarned { get; set; }
