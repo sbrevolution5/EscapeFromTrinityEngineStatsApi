@@ -36,6 +36,8 @@ namespace StatisticsApi.Services
             result.Rooms = await GetRoomsFromDto(input.RoomDtos);
             result.Characters = await GetCharactersFromDtoAsync(input);
             result.Passives = await GetPassivesFromDto(input.PassiveDtos);
+            _context.GameResults.Add(result);
+            await _context.SaveChangesAsync();
             return result;
         }
 
@@ -285,7 +287,6 @@ namespace StatisticsApi.Services
                 Name = name
             };
             _context.BattleInstances.Add(instance);
-            await _context.SaveChangesAsync();
             BattleInstances.Add(instance);
             return instance;
         }
@@ -312,7 +313,6 @@ namespace StatisticsApi.Services
                 Name = name
             };
             _context.EventInstances.Add(instance);
-            await _context.SaveChangesAsync();
             EventInstances.Add(instance);
             return instance;
         }
@@ -454,7 +454,6 @@ namespace StatisticsApi.Services
             };
 
             _context.CharacterInstances.Add(instance);
-            await _context.SaveChangesAsync();
 
             return instance;
         }
@@ -489,7 +488,6 @@ namespace StatisticsApi.Services
                 Name = name
             };
             _context.PassiveInstances.Add(instance);
-            await _context.SaveChangesAsync();
             PassiveInstances.Add(instance);
             return instance;
         }
@@ -507,7 +505,6 @@ namespace StatisticsApi.Services
                 Name = name
             };
             _context.CardInstances.Add(instance);
-            await _context.SaveChangesAsync();
             CardInstances.Add(instance);
             return instance;
         }
