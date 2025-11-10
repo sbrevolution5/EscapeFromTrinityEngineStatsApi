@@ -68,7 +68,7 @@ namespace StatisticsApi.Context
                 e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
                 e.HasOne(e => e.RewardRecord)
                 .WithMany(s => s.GivenTradeCards)
-                .HasForeignKey(e => e.CardRecordId);
+                .HasForeignKey(e => e.RewardRecordId);
                 e.HasOne(e => e.CardRecord)
                 .WithMany()
                 .HasForeignKey(e => e.CardRecordId);
@@ -78,17 +78,20 @@ namespace StatisticsApi.Context
                 e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
                 e.HasOne(e => e.RewardRecord)
                 .WithMany(s => s.JunkRewards)
-                .HasForeignKey(e => e.CardRecordId);
+                .HasForeignKey(e => e.RewardRecordId)
+                .OnDelete(DeleteBehavior.Cascade);
                 e.HasOne(e => e.CardRecord)
                 .WithMany()
-                .HasForeignKey(e => e.CardRecordId);
+                .HasForeignKey(e => e.CardRecordId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             });
             modelBuilder.Entity<RewardUpgradedCards>(e =>
             {
                 e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
                 e.HasOne(e => e.RewardRecord)
                 .WithMany(s => s.UpgradedCards)
-                .HasForeignKey(e => e.CardRecordId);
+                .HasForeignKey(e => e.RewardRecordId);
                 e.HasOne(e => e.CardRecord)
                 .WithMany()
                 .HasForeignKey(e => e.CardRecordId);
@@ -98,7 +101,7 @@ namespace StatisticsApi.Context
                 e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
                 e.HasOne(e => e.RewardRecord)
                 .WithMany(s => s.RecievedTradeCards)
-                .HasForeignKey(e => e.CardRecordId);
+                .HasForeignKey(e => e.RewardRecordId);
                 e.HasOne(e => e.CardRecord)
                 .WithMany()
                 .HasForeignKey(e => e.CardRecordId);
@@ -108,7 +111,7 @@ namespace StatisticsApi.Context
                 e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
                 e.HasOne(e => e.RewardRecord)
                 .WithMany(s => s.RemovedCards)
-                .HasForeignKey(e => e.CardRecordId);
+                .HasForeignKey(e => e.RewardRecordId);
                 e.HasOne(e => e.CardRecord)
                 .WithMany()
                 .HasForeignKey(e => e.CardRecordId);
@@ -128,7 +131,7 @@ namespace StatisticsApi.Context
                 e.HasKey(e => new { e.CardChoiceRecordId, e.CardInstanceId});
                 e.HasOne(e => e.CardChoiceRecord)
                 .WithMany(s => s.RerolledCards)
-                .HasForeignKey(e => e.CardInstanceId);
+                .HasForeignKey(e => e.CardChoiceRecordId);
                 e.HasOne(e => e.CardInstance)
                 .WithMany()
                 .HasForeignKey(e => e.CardInstanceId);
