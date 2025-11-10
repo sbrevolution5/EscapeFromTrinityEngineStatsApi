@@ -6,7 +6,7 @@ using System;
 
 namespace StatisticsApi.Services
 {
-    public class FetchDataService
+    public class FetchDataService : IFetchDataService
     {
         private readonly StatisticsDbContext _dbContext;
 
@@ -15,13 +15,14 @@ namespace StatisticsApi.Services
             _dbContext = dbContext;
         }
 
-        public async Task<List<GameResult>> GameResultsForVersion(string version) { 
-            return await _dbContext.GameResults.IncludeAllRoomRecords().Where(g=>g.GameVersion==version).ToListAsync();
+        public async Task<List<GameResult>> GameResultsForVersion(string version)
+        {
+            return await _dbContext.GameResults.IncludeAllRoomRecords().Where(g => g.GameVersion == version).ToListAsync();
         }
         public async Task<GameResult> GetSingleGameResult(int Id)
         {
             return await _dbContext.GameResults.IncludeAllRoomRecords().FirstOrDefaultAsync(g => g.Id == Id);
         }
-        
+
     }
 }

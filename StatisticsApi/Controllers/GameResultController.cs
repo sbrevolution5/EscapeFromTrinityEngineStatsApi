@@ -16,14 +16,16 @@ namespace StatisticsApi.Controllers
     {
         private readonly StatisticsDbContext _dbContext;
         private readonly IDtoConverterService _dtoConverterService;
+        private readonly IFetchDataService _fetchData;
 
         private readonly ILogger<GameResultController> _logger;
 
-        public GameResultController(ILogger<GameResultController> logger, StatisticsDbContext dbContext, IDtoConverterService dtoConverterService)
+        public GameResultController(ILogger<GameResultController> logger, StatisticsDbContext dbContext, IDtoConverterService dtoConverterService, IFetchDataService fetchData)
         {
             _logger = logger;
             _dbContext = dbContext;
             _dtoConverterService = dtoConverterService;
+            _fetchData = fetchData;
         }
         [HttpPost]
         public async Task PostGameResultAsync([FromBody] GameResultDto input)
@@ -36,16 +38,7 @@ namespace StatisticsApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<GameResult>> GetAllResults()
         {
-            List<GameResult> res = await _dataService._dbContext.GameResults
-                .Include(g=>g.Rooms)
-                .ThenInclude(r=>r.ShopRecord)
-                .ThenInclude(r=>r.AffordableCards)
-                .ThenInclude(r=>r.CardInstance)
-                .Include(g=>g.Passives)
-                .Include(g=>g.Characters)
-                .ThenInclude(c=>c.DeckRecord)
-                .ThenInclude(d=>d.CardInstance)
-                .ToListAsync();
+            List<GameResult> res = await _fetchData.
             return res;
         }
     }
