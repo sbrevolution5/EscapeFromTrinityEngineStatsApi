@@ -7,6 +7,9 @@ namespace EscapeFromTrinityEngineStats.Models
     public class BattleRecord
     {
         public int Id { get; set; }
+        public int VersionId { get; set; }
+
+        public virtual GameVersion Version { get; set; }
         public virtual BattleInstance BattleInstance { get; set; }
         public int FloorEncountered { get; set; }
         public int LevelEncountered { get; set; }
