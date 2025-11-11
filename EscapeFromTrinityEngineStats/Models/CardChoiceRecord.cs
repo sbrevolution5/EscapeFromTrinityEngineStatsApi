@@ -6,6 +6,9 @@ namespace EscapeFromTrinityEngineStats.Models
     public class CardChoiceRecord
     {
         public int Id { get; set; }
+        public int VersionId { get; set; }
+
+        public virtual GameVersion Version { get; set; }
         public virtual List<CardChoiceCardInstance> CardChoices { get; set; } = [];
         public virtual CardInstance CardPicked { get; set; } 
         public int LevelNumber { get; set; }
