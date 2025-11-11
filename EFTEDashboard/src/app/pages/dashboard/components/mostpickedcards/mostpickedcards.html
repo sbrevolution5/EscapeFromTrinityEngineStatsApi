@@ -3,6 +3,9 @@
         <div class="font-semibold text-xl">Most Picked Cards</div>
     </div>
     <ul class="list-none p-0 m-0">
+        @for(item of cardResults; track item.id){
+            <app-pickedcardrow [cardPickRateDto]="item"></app-pickedcardrow>
+        }
         <app-pickedcardrow></app-pickedcardrow>
         <li class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
             <div>
