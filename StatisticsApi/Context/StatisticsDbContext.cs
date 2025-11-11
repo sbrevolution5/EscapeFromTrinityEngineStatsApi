@@ -189,6 +189,7 @@ namespace StatisticsApi.Context
         public DbSet<RewardRemovedCards> RewardRemovedCards { get; set; }
         public DbSet<RewardUpgradedCards> RewardUpgradedCards { get; set; }
         public DbSet<CardChoiceCardInstance> CardChoiceCards { get; set; }
+        public DbSet<CardChoiceRecord> CardChoiceRecords { get; set; }
         public DbSet<RerolledCardCardInstance> RerolledCardCardInstances { get; set; }
 
     }
