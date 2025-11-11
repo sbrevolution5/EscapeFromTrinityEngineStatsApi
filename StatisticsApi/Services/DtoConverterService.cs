@@ -26,7 +26,7 @@ namespace StatisticsApi.Services
             BattleInstances = await _context.BattleInstances.ToHashSetAsync();
             EventInstances = await _context.EventInstances.ToHashSetAsync();
             var result = new GameResult();
-            result.GameVersion = input.GameVersion;
+            result.GameVersion = await GetOrCreateGameVersionAsync(input.GameVersion);
             result.RunPerk = input.RunPerk;
             result.Win = input.Win;
             result.RemainingGold = input.RemainingGold;
@@ -39,6 +39,25 @@ namespace StatisticsApi.Services
             _context.GameResults.Add(result);
             await _context.SaveChangesAsync();
             return result;
+        }
+
+        private async Task<GameVersion> GetOrCreateGameVersionAsync(string gameVersion)
+        {
+            gameVersion = gameVersion.Trim();
+
+            var instance = await _context.GameVersions
+                .FirstOrDefaultAsync(g => g.VersionName == gameVersion);
+
+            if (instance != null)
+                return instance;
+
+            instance = new GameVersion
+            {
+                VersionName = gameVersion
+            };
+
+            _context.GameVersions.Add(instance);
+            return instance;
         }
 
         private async Task<List<RoomRecord>> GetRoomsFromDto(List<RoomRecordDto> input)

@@ -7,7 +7,8 @@ namespace EscapeFromTrinityEngineStats.Models
         public int Id { get; set; }
         public bool Win { get; set; }
         public int PlayerId { get; set; }
-        public string GameVersion { get; set; }
+        public int GameVersionId { get; set; }
+        public virtual GameVersion GameVersion { get; set; }
         public int RoomsCompleted { get; set; }
         public int LevelsCompleted { get; set; }
         public virtual List<PassiveRecord> Passives { get; set; } = [];

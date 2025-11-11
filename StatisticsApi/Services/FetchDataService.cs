@@ -17,7 +17,7 @@ namespace StatisticsApi.Services
 
         public async Task<List<GameResult>> GameResultsForVersion(string version)
         {
-            return await _dbContext.GameResults.IncludeAllRoomRecords().Where(g => g.GameVersion == version).ToListAsync();
+            return await _dbContext.GameResults.IncludeAllRoomRecords().Where(g => g.GameVersion.VersionName == version).ToListAsync();
         }
         public async Task<GameResult> GetSingleGameResult(int Id)
         {

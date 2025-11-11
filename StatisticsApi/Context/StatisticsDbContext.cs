@@ -23,6 +23,10 @@ namespace StatisticsApi.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<GameResult>(g =>
+            {
+                g.HasOne(g => g.GameVersion);
+            });
             modelBuilder.Entity<ShopAffordableCard>(e =>
             {
                 e.HasKey(e => new { e.ShopRecordId, e.CardInstanceId });
@@ -139,6 +143,7 @@ namespace StatisticsApi.Context
 
         }
         public DbSet<GameResult> GameResults { get; set; }
+        public DbSet<GameVersion> GameVersions { get; set; }
         public DbSet<CharacterInstance> CharacterInstances { get; set; }
         public DbSet<CardInstance> CardInstances { get; set; }
         public DbSet<EventInstance> EventInstances { get; set; }
