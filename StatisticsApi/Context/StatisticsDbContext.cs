@@ -23,34 +23,34 @@ namespace StatisticsApi.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<GameResult>(g =>
-            {
-                g.HasOne(g => g.GameVersion);
-            });
-            modelBuilder.Entity<CardChoiceRecord>(g =>
-            {
-                g.HasOne(g => g.Version);
-            });
-            modelBuilder.Entity<BattleRecord>(g =>
-            {
-                g.HasOne(g => g.Version);
-            });
-            modelBuilder.Entity<CharacterRecord>(g =>
-            {
-                g.HasOne(g => g.Version);
-            });
-            modelBuilder.Entity<EventRecord>(g =>
-            {
-                g.HasOne(g => g.Version);
-            });
-            modelBuilder.Entity<RewardRecord>(g =>
-            {
-                g.HasOne(g => g.Version);
-            });
-            modelBuilder.Entity<ShopRecord>(g =>
-            {
-                g.HasOne(g => g.Version);
-            });
+            //modelBuilder.Entity<GameResult>(g =>
+            //{
+            //    g.HasOne(g => g.GameVersion);
+            //});
+            //modelBuilder.Entity<CardChoiceRecord>(g =>
+            //{
+            //    g.HasOne(g => g.Version);
+            //});
+            //modelBuilder.Entity<BattleRecord>(g =>
+            //{
+            //    g.HasOne(g => g.Version);
+            //});
+            //modelBuilder.Entity<CharacterRecord>(g =>
+            //{
+            //    g.HasOne(g => g.Version);
+            //});
+            //modelBuilder.Entity<EventRecord>(g =>
+            //{
+            //    g.HasOne(g => g.Version);
+            //});
+            //modelBuilder.Entity<RewardRecord>(g =>
+            //{
+            //    g.HasOne(g => g.Version);
+            //});
+            //modelBuilder.Entity<ShopRecord>(g =>
+            //{
+            //    g.HasOne(g => g.Version);
+            //});
             modelBuilder.Entity<ShopAffordableCard>(e =>
             {
                 e.HasKey(e => new { e.ShopRecordId, e.CardInstanceId });
