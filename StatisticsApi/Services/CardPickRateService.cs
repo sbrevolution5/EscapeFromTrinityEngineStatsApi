@@ -1,7 +1,6 @@
 ﻿using EscapeFromTrinityEngineStats.Models.OutputDtos;
 using Microsoft.EntityFrameworkCore;
 using StatisticsApi.Context;
-using StatisticsApi.Models.Dto;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
