@@ -1,7 +1,10 @@
+import { GameVersion } from "./game-version";
 import { BattleInstance } from "./Instances/battle-instance";
 
 export interface BattleRecord {
   id?: number;
+  versionId?: number;
+    version?: GameVersion;
   battleInstance?: BattleInstance;
   floorEncountered?: number;
   levelEncountered?: number;

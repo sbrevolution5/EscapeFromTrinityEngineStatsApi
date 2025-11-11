@@ -15,6 +15,7 @@ namespace StatisticsApi.Services
         public HashSet<PassiveInstance> PassiveInstances { get; private set; } = new HashSet<PassiveInstance>();
         public HashSet<BattleInstance> BattleInstances { get; private set; } = new HashSet<BattleInstance>();
         public HashSet<EventInstance> EventInstances { get; private set; } = new HashSet<EventInstance>();
+        public GameVersion GameVersion { get; private set; }
         public DtoConverterService(StatisticsDbContext context)
         {
             _context = context;
@@ -57,6 +58,7 @@ namespace StatisticsApi.Services
             };
 
             _context.GameVersions.Add(instance);
+            GameVersion = instance;
             return instance;
         }
 
@@ -100,6 +102,7 @@ namespace StatisticsApi.Services
         private async Task<RewardRecord?> GetRewardRecordFromDtoAsync(RewardRecordDto rewardRecordDto)
         {
             var result = new RewardRecord();
+            result.Version = GameVersion;
             result.GoldGained = rewardRecordDto.GoldGained;
             if (rewardRecordDto.GivenTradeCards is not null && rewardRecordDto.GivenTradeCards.Count > 0)
             {
@@ -193,6 +196,7 @@ namespace StatisticsApi.Services
         private async Task<CardChoiceRecord> CreateCardChoiceDtoAsync(CardChoiceRecordDto item)
         {
             var result = new CardChoiceRecord();
+            result.Version = GameVersion;
             result.RerolledCards = new List<RerolledCardCardInstance>();
             result.UpgradePicked = item.UpgradePicked;
             result.CardPicked = await GetOrCreateCardInstanceAsync(item.CardPicked);
@@ -267,6 +271,7 @@ namespace StatisticsApi.Services
         private async Task<BattleRecord?> GetBattleRecordFromDtoAsync(BattleRecordDto battleRecordDto)
         {
             var result = new BattleRecord();
+            result.Version = GameVersion;
             result.Character1CardsPlayed = battleRecordDto.Character1CardsPlayed;
             result.Character2CardsPlayed = battleRecordDto.Character2CardsPlayed;
             result.Character3CardsPlayed = battleRecordDto.Character3CardsPlayed;
@@ -313,6 +318,8 @@ namespace StatisticsApi.Services
         private async Task<EventRecord> GetEventRecordFromDtoAsync(EventRecordDto eventRecordDto)
         {
             var result = new EventRecord();
+            result.Version = GameVersion;
+
             result.EventInstance = await GetOrCreateEventInstanceAsync(eventRecordDto.Name);
             result.TeamworkOnEnter = eventRecordDto.TeamworkOnEnter;
             return result;
@@ -339,6 +346,7 @@ namespace StatisticsApi.Services
         private async Task<ShopRecord?> GetShopRecordFromDtoAsync(ShopRecordDto shopRecordDto)
         {
             var result = new ShopRecord();
+            result.Version = GameVersion;
             result.AffordableCards = await GetAffordableCardsFromDtoAsync(shopRecordDto, result);
             result.AffordablePassives = await GetAffordablePassivesFromDtoAsync(shopRecordDto, result);
             result.PurchasedCards = await GetPurchasedCardsFromDtoAsync(shopRecordDto, result);
@@ -430,6 +438,7 @@ namespace StatisticsApi.Services
         private async Task<CharacterRecord> CharacterFromDtoAsync(CharacterRecordDto c)
         {
             var result = new CharacterRecord();
+            result.Version = GameVersion;
             result.CharacterInstance = await GetOrCreateCharacterInstanceAsync(c.Name);
             List<CardRecord> deckResult = await GetDecklistFromCharacterDto(c);
             result.DeckRecord = deckResult;
