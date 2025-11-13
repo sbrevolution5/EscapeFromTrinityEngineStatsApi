@@ -11,6 +11,6 @@ namespace StatisticsApi.OutputDtos
         public int GamesPlayed { get; set; }
         public int TotalChoices { get; set; }
         public int CurrentWinrate { get; set; }
-        public int CurrentVersion { get; set; }
+        public string CurrentVersion { get; set; }
     }
 }

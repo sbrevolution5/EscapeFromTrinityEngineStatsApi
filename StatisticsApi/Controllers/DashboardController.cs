@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StatisticsApi.Context;
+using StatisticsApi.OutputDtos;
+using StatisticsApi.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,11 +14,18 @@ namespace StatisticsApi.Controllers
     public class DashboardController : ControllerBase
     {
         private readonly StatisticsDbContext _context;
+        private readonly IDashboardDataService _dashboardData;
+
+        public DashboardController(IDashboardDataService dashboardData)
+        {
+            _dashboardData = dashboardData;
+        }
+
         // GET: api/<DashboardController>
         [HttpGet]
-        public async Task<GameVersion> GetAsync()
+        public async Task<DashboardStatsDto> GetAsync()
         {
-            return await _context.GameVersions.OrderByDescending(g => g.Id).FirstOrDefaultAsync();
+            return await _dashboardData.GetDashboardStatsAsync();
         }
 
         // GET api/<DashboardController>/5
