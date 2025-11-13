@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EscapeFromTrinityEngineStats.Models.OutputDtos
+namespace StatisticsApi.OutputDtos
 {
     public class CardPickRateDto
     {
