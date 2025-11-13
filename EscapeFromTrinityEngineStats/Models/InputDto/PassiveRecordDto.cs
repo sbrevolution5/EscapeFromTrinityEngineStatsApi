@@ -10,5 +10,6 @@ namespace EscapeFromTrinityEngineStats.Models.InputDto
     {
         public int PartySlot { get; set; }
         public string Name { get; set; }
+        public int Rarity { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace EscapeFromTrinityEngineStats.Models.InputDto
     public class BattleRecordDto
     {
         public string Name { get; set; }
+        public int Tier { get; set; }
         public int FloorEncountered { get; set; }
         public int LevelEncountered{ get; set; }
         public int Character1HpStart{ get; set; }

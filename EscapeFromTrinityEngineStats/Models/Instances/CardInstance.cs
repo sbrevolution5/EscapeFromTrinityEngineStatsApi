@@ -7,5 +7,6 @@ namespace EscapeFromTrinityEngineStats.Models.Instances
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public int Rarity { get; set; }
     }
 }
