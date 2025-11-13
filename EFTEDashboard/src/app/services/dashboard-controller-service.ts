@@ -1,5 +1,6 @@
 import { GameResult } from '@/interfaces/game-result';
 import { GameVersion } from '@/interfaces/game-version';
+import { DashboardStatsDto } from '@/interfaces/outputDtos/dashboard-stats-dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
@@ -13,7 +14,10 @@ export class DashboardControllerService {
   private readonly baseUrl = (environment.apiUrl ?? '').replace(/\/$/, '');
 
     constructor(private http: HttpClient) {}
-
+    // GET /Dashboard
+    getDashboard(): Observable<DashboardStatsDto> {
+        return this.http.get<DashboardStatsDto>(`${this.baseUrl}/Dashboard`);
+    }
     // GET /GameResult
     get(): Observable<GameVersion|null> {
         return this.http.get<GameVersion>(`${this.baseUrl}/Dashboard`).pipe(map((gv) => (gv ? gv : null)));

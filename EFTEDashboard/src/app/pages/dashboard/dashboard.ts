@@ -6,13 +6,17 @@ import { BestSellingWidget } from './components/bestsellingwidget';
 import { RevenueStreamWidget } from './components/revenuestreamwidget';
 import { DashboardControllerService } from '@/services/dashboard-controller-service';
 import { Mostpickedcards } from './components/mostpickedcards/mostpickedcards';
+import { DashboardStatsDto } from '@/interfaces/outputDtos/dashboard-stats-dto';
 
 @Component({
 	selector: 'app-dashboard',
 	imports: [StatsWidget, BestSellingWidget, RevenueStreamWidget, NotificationsWidget, Mostpickedcards],
 	template: `
 		<div class="grid grid-cols-12 gap-8">
-			<app-stats-widget class="contents" />
+            @if (this.dashStats != null){
+
+                <app-stats-widget [dashStats]="this.dashStats" class="contents" />
+            }
 			<div class="col-span-12 xl:col-span-6">
 				@if (currentVersion != null) {
 					<app-mostpickedcards [mostRecentVersionId]="this.currentVersion" />
@@ -28,8 +32,10 @@ import { Mostpickedcards } from './components/mostpickedcards/mostpickedcards';
 })
 export class Dashboard {
 	currentVersion: number | undefined;
+    dashStats: DashboardStatsDto | undefined;
 	constructor(private dashboardControllerService: DashboardControllerService) {}
 	ngOnInit() {
+        this.dashboardControllerService.getDashboard().subscribe();
 		this.dashboardControllerService.get().subscribe((gv) => {
 			this.currentVersion = gv?.id;
 		});

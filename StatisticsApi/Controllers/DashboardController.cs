@@ -16,9 +16,10 @@ namespace StatisticsApi.Controllers
         private readonly StatisticsDbContext _context;
         private readonly IDashboardDataService _dashboardData;
 
-        public DashboardController(IDashboardDataService dashboardData)
+        public DashboardController(IDashboardDataService dashboardData, StatisticsDbContext context)
         {
             _dashboardData = dashboardData;
+            _context = context;
         }
 
         // GET: api/<DashboardController>
