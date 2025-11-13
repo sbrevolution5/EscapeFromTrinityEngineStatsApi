@@ -5,6 +5,7 @@ import { Pickedcardrow } from './pickedcardrow/pickedcardrow';
 import { GameResultService } from '@/services/game-result-service';
 
 @Component({
+	standalone: true,
 	selector: 'app-mostpickedcards',
 	imports: [Pickedcardrow],
 	templateUrl: './mostpickedcards.html',
@@ -12,7 +13,7 @@ import { GameResultService } from '@/services/game-result-service';
 })
 export class Mostpickedcards implements OnInit {
 	@Input()
-	mostRecentVersionId!: number;
+	mostRecentVersionId!: number | undefined;
 	results: any;
 	cardResults: any;
 
@@ -20,6 +21,8 @@ export class Mostpickedcards implements OnInit {
 
 	ngOnInit() {
 		this.results = this.gameResultService.getAll();
-		this.cardResults = this.gameResultService.getMostPickedCards(this.mostRecentVersionId);
+		if (this.mostRecentVersionId != null) {
+			this.cardResults = this.gameResultService.getMostPickedCards(this.mostRecentVersionId);
+		}
 	}
 }
