@@ -33,18 +33,18 @@ export class Dashboard {
 	currentVersion: GameVersion | undefined;
 	// Initialize with defaults so the StatsWidget renders immediately if API is slow or unavailable
 	dashStats: DashboardStatsDto = {
-		GamesPlayed: 0,
-		TotalChoices: 0,
-		CurrentWinrate: 0,
-		CurrentVersion: 0
+		gamesPlayed: 0,
+		totalChoices: 0,
+		currentWinrate: 0,
+		currentVersion: 0
 	};
 
 	// Default fallback if API call fails or returns nothing
 	private readonly DEFAULT_DASH_STATS: DashboardStatsDto = {
-		GamesPlayed: 0,
-		TotalChoices: 0,
-		CurrentWinrate: 0,
-		CurrentVersion: 0
+		gamesPlayed: 0,
+		totalChoices: 0,
+		currentWinrate: 0,
+		currentVersion: 0
 	};
 
 	constructor(private dashboardControllerService: DashboardControllerService) {}
@@ -58,10 +58,10 @@ export class Dashboard {
 					const ds = raw;
 					// Map API response to DashboardStatsDto (API returns camelCase properties)
 					const mapped: DashboardStatsDto = {
-						GamesPlayed: Number(ds?.gamesPlayed ?? ds?.GamesPlayed ?? this.DEFAULT_DASH_STATS.GamesPlayed),
-						TotalChoices: Number(ds?.totalChoices ?? ds?.TotalChoices ?? this.DEFAULT_DASH_STATS.TotalChoices),
-						CurrentWinrate: Number(ds?.currentWinrate ?? ds?.CurrentWinrate ?? this.DEFAULT_DASH_STATS.CurrentWinrate),
-						CurrentVersion: Number(ds?.currentVersion ?? ds?.CurrentVersion ?? this.DEFAULT_DASH_STATS.CurrentVersion)
+						gamesPlayed: Number(ds?.gamesPlayed ?? ds?.GamesPlayed ?? this.DEFAULT_DASH_STATS.gamesPlayed),
+						totalChoices: Number(ds?.totalChoices ?? ds?.TotalChoices ?? this.DEFAULT_DASH_STATS.totalChoices),
+						currentWinrate: Number(ds?.currentWinrate ?? ds?.CurrentWinrate ?? this.DEFAULT_DASH_STATS.currentWinrate),
+						currentVersion: Number(ds?.currentVersion ?? ds?.CurrentVersion ?? this.DEFAULT_DASH_STATS.currentVersion)
 					};
 
 					this.dashStats = mapped;

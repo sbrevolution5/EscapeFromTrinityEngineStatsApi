@@ -1,6 +1,6 @@
 export interface DashboardStatsDto {
-	GamesPlayed: number;
-	TotalChoices: number;
-	CurrentWinrate: number;
-	CurrentVersion: number;
+	gamesPlayed: number;
+	totalChoices: number;
+	currentWinrate: number;
+	currentVersion: number;
 }
