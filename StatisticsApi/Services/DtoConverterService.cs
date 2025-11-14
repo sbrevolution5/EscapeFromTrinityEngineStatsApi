@@ -34,9 +34,10 @@ namespace StatisticsApi.Services
             result.TotalGoldEarned = input.TotalGoldEarned;
             result.TotalTeamworkEarned = input.TotalTeamworkEarned;
             result.PlayerId = input.PlayerId;
-            result.Rooms = await GetRoomsFromDto(input.RoomDtos);
+            result.Rooms = GetRoomsFromDto(input.RoomDtos);
             result.Characters = await GetCharactersFromDtoAsync(input);
             result.Passives = GetPassivesFromDto(input.PassiveDtos);
+            result.Abandoned = input.Abandoned;
             _context.GameResults.Add(result);
             await _context.SaveChangesAsync();
             return result;
@@ -62,7 +63,7 @@ namespace StatisticsApi.Services
             return instance;
         }
 
-        private async Task<List<RoomRecord>> GetRoomsFromDto(List<RoomRecordDto> input)
+        private List<RoomRecord> GetRoomsFromDto(List<RoomRecordDto> input)
         {
             var result = new List<RoomRecord>();
             foreach (var item in input)
