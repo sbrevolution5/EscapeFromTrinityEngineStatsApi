@@ -21,5 +21,6 @@ namespace EscapeFromTrinityEngineStats.Models.InputDto
         public int TotalGoldEarned{ get; set; }
         public int TotalTeamworkEarned{ get; set; }
         public string RunPerk { get; set; } = "";
+        public bool Abandoned = false;
     }
 }
