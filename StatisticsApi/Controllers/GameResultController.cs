@@ -33,7 +33,6 @@ namespace StatisticsApi.Controllers
             var result = await _dtoConverterService.GameResultFromDtoAsync(input);
             
         }
-
         [HttpGet]
         public async Task<IEnumerable<GameResult>> GetAllResults()
         {

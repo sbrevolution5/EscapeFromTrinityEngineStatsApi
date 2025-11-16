@@ -19,7 +19,9 @@ import { GameVersion } from '@/interfaces/game-version';
 		<div class="grid grid-cols-12 gap-8">
 			<app-stats-widget *ngIf="dashStats" [dashStats]="dashStats" class="contents"></app-stats-widget>
 			<div class="col-span-12 xl:col-span-6">
-				<app-mostpickedcards *ngIf="currentVersion?.id != null" [mostRecentVersionId]="currentVersion?.id"></app-mostpickedcards>
+				@if (currentVersion != null) {
+					<app-mostpickedcards  [mostRecentVersionId]="currentVersion" ></app-mostpickedcards>
+				}
 				<app-best-selling-widget></app-best-selling-widget>
 			</div>
 			<div class="col-span-12 xl:col-span-6">
@@ -30,7 +32,7 @@ import { GameVersion } from '@/interfaces/game-version';
 	`
 })
 export class Dashboard {
-	currentVersion: GameVersion | undefined;
+	currentVersion: number | undefined;
 	// Initialize with defaults so the StatsWidget renders immediately if API is slow or unavailable
 	dashStats: DashboardStatsDto = {
 		gamesPlayed: 0,
@@ -63,6 +65,7 @@ export class Dashboard {
 						currentWinrate: Number(ds?.currentWinrate ?? ds?.CurrentWinrate ?? this.DEFAULT_DASH_STATS.currentWinrate),
 						currentVersion: Number(ds?.currentVersion ?? ds?.CurrentVersion ?? this.DEFAULT_DASH_STATS.currentVersion)
 					};
+					this.currentVersion = mapped.currentVersion;
 
 					this.dashStats = mapped;
 					console.log('dashboard data (raw):', ds);

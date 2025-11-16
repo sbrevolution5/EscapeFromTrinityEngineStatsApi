@@ -3,6 +3,8 @@ import { Menu } from 'primeng/menu';
 import { CardPickRateDto } from '../../../../interfaces/outputDtos/card-pick-rate-dto';
 import { Pickedcardrow } from './pickedcardrow/pickedcardrow';
 import { GameResultService } from '@/services/game-result-service';
+import { PickRateService } from '@/services/pick-rate-service';
+import { map } from 'rxjs';
 
 @Component({
 	standalone: true,
@@ -14,15 +16,35 @@ import { GameResultService } from '@/services/game-result-service';
 export class Mostpickedcards implements OnInit {
 	@Input()
 	mostRecentVersionId!: number | undefined;
-	results: any;
 	cardResults: any;
 
-	constructor(private gameResultService: GameResultService) {}
+	constructor(private pickRateService: PickRateService) {}
 
 	ngOnInit() {
-		this.results = this.gameResultService.getAll();
 		if (this.mostRecentVersionId != null) {
-			this.cardResults = this.gameResultService.getMostPickedCards(this.mostRecentVersionId);
+			this.cardResults = this.pickRateService
+				.getMostPickedCards(this.mostRecentVersionId)
+				.pipe(map((pr) => (pr ? pr : undefined)))
+				.subscribe({
+					next: (raw: any) => {
+						const pr = raw;
+						// Map API response to DashboardStatsDto (API returns camelCase properties)
+						const mapped: CardPickRateDto = {
+							versionId: Number(pr?.versionId ?? pr?.VersionId ?? 0),
+							versionName: String(pr?.versionName ?? pr?.VersionName ?? ''),
+							cardInstanceId: Number(pr?.cardInstanceId ?? pr?.CardInstanceId ?? 0),
+							cardName: String(pr?.cardName ?? pr?.CardName ?? ''),
+							availableCount: Number(pr?.availableCount ?? pr?.AvailableCount ?? 0),
+							pickedCount: Number(pr?.pickedCount ?? pr?.PickedCount ?? 0),
+							pickRate: Number(pr?.pickRate ?? pr?.PickRate ?? 0) // 0..1
+						};
+						this.cardResults = mapped;
+					},
+					error: (err) => {
+						console.error('Could not fetch pick rates from API', err);
+						this.cardResults = [];
+					}
+				});
 		}
 	}
 }

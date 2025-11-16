@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StatisticsApi.Services
 {
-    public class CardPickRateService
+    public class CardPickRateService : ICardPickRateService
     {
         private readonly StatisticsDbContext _context;
         public CardPickRateService(StatisticsDbContext context)

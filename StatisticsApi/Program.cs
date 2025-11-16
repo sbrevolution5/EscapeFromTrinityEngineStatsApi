@@ -15,6 +15,7 @@ builder.Services.AddDbContext<StatisticsDbContext>(options => options.UseNpgsql(
 builder.Services.AddScoped<IDtoConverterService, DtoConverterService>();
 builder.Services.AddScoped<IFetchDataService, FetchDataService>();
 builder.Services.AddScoped<IDashboardDataService, DashboardDataService>();
+builder.Services.AddScoped<ICardPickRateService, CardPickRateService>();
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
