@@ -35,9 +35,11 @@ export class Mostpickedcards implements OnInit {
 							cardInstanceId: Number(pr?.cardInstanceId ?? pr?.CardInstanceId ?? 0),
 							cardName: String(pr?.cardName ?? pr?.CardName ?? ''),
 							availableCount: Number(pr?.availableCount ?? pr?.AvailableCount ?? 0),
-							pickedCount: Number(pr?.pickedCount ?? pr?.PickedCount ?? 0),
+							pickedCount: Number(pr?.pickedCount ?? pr?.PickedCount ?? 0)
 						};
 						this.cardResults = mapped;
+						console.log('raw', raw);
+						console.log('mapped', this.cardResults);
 					},
 					error: (err) => {
 						console.error('Could not fetch pick rates from API', err);
