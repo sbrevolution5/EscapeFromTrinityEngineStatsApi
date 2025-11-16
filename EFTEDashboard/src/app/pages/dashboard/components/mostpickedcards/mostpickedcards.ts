@@ -28,7 +28,7 @@ export class Mostpickedcards implements OnInit {
 				.subscribe({
 					next: (raw: any) => {
 						const pr = raw;
-						// Map API response to DashboardStatsDto (API returns camelCase properties)
+						// Map API response to CardPickRate (API returns camelCase properties)
 						const mapped: CardPickRateDto = {
 							versionId: Number(pr?.versionId ?? pr?.VersionId ?? 0),
 							versionName: String(pr?.versionName ?? pr?.VersionName ?? ''),

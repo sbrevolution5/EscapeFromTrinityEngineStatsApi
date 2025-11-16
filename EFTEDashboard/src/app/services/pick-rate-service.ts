@@ -13,6 +13,6 @@ export class PickRateService {
 	constructor(private http: HttpClient) {}
 	// GET /PickRate/{versionId}
 	getMostPickedCards(versionId: number): Observable<CardPickRateDto[]> {
-		return this.http.get<CardPickRateDto[]>(`${this.baseUrl}//PickRate/${versionId}`).pipe(map((list) => list ?? []));
+		return this.http.get<CardPickRateDto[]>(`${this.baseUrl}/PickRate/${versionId}`).pipe(map((list) => list ?? []));
 	}
 }
