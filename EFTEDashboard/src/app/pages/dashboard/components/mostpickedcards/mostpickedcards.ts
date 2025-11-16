@@ -36,7 +36,6 @@ export class Mostpickedcards implements OnInit {
 							cardName: String(pr?.cardName ?? pr?.CardName ?? ''),
 							availableCount: Number(pr?.availableCount ?? pr?.AvailableCount ?? 0),
 							pickedCount: Number(pr?.pickedCount ?? pr?.PickedCount ?? 0),
-							pickRate: Number(pr?.pickRate ?? pr?.PickRate ?? 0) // 0..1
 						};
 						this.cardResults = mapped;
 					},

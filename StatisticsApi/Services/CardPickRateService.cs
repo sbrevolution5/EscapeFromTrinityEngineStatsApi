@@ -15,40 +15,43 @@ namespace StatisticsApi.Services
             _context = context;
         }
 
-        
-
         // If versionId is null, returns rates across all versions (per-version rows).
         public async Task<List<CardPickRateDto>> GetCardPickRatesAsync(int? versionId = null)
         {
+            // availability: times card appeared among choices (per version)
+            var availability = _context.CardChoiceCards
+                .Join(_context.CardChoiceRecords,
+                    cc => cc.CardChoiceRecordId,
+                    cr => cr.Id,
+                    (cc, cr) => new { cr.VersionId, cc.CardInstanceId })
+                .Where(x => !versionId.HasValue || x.VersionId == versionId.Value)
+                .GroupBy(x => new { x.VersionId, x.CardInstanceId })
+                .Select(g => new { g.Key.VersionId, g.Key.CardInstanceId, AvailableCount = g.Count() });
+
+            // picks: times card was picked (per version)
+            var picks = _context.CardChoiceRecords
+                .Where(r => !versionId.HasValue || r.VersionId == versionId.Value)
+                .GroupBy(r => new { r.VersionId, CardInstanceId = r.CardPicked.Id })
+                .Select(g => new { g.Key.VersionId, g.Key.CardInstanceId, PickedCount = g.Count() });
+
             var query =
-                from cc in _context.CardChoiceCards
-                join cr in _context.CardChoiceRecords on cc.CardChoiceRecordId equals cr.Id
-                join ci in _context.CardInstances on cc.CardInstanceId equals ci.Id
-                join gv in _context.GameVersions on cr.VersionId equals gv.Id
-                where !versionId.HasValue || cr.VersionId == versionId.Value
-                group new { cc, cr } by new
-                {
-                    VersionId = cr.VersionId,
-                    VersionName = gv.VersionName,
-                    CardInstanceId = cc.CardInstanceId,
-                    CardName = ci.Name
-                } into g
-                let available = g.Count()
-                // Use EF.Property to reference the FK column (CardPickedId) so EF translates to SQL instead of client-evaluating navigation access.
-                let picked = g.Count(x => EF.Property<int?>(x.cr, "CardPickedId") == x.cc.CardInstanceId)
+                from a in availability
+                join ci in _context.CardInstances on a.CardInstanceId equals ci.Id
+                join gv in _context.GameVersions on a.VersionId equals gv.Id
+                join p in picks on new { a.VersionId, a.CardInstanceId } equals new { p.VersionId, p.CardInstanceId } into pj
+                from p in pj.DefaultIfEmpty()
                 select new CardPickRateDto
                 {
-                    VersionId = g.Key.VersionId,
-                    VersionName = g.Key.VersionName,
-                    CardInstanceId = g.Key.CardInstanceId,
-                    CardName = g.Key.CardName,
-                    AvailableCount = available,
-                    PickedCount = picked,
-                    PickRate = available == 0 ? 0.0 : (double)picked / (double)available
+                    VersionId = a.VersionId,
+                    VersionName = gv.VersionName,
+                    CardInstanceId = a.CardInstanceId,
+                    CardName = ci.Name,
+                    AvailableCount = a.AvailableCount,
+                    PickedCount = p != null ? p.PickedCount : 0
                 };
 
             return await query
-                .OrderByDescending(r => r.PickRate)
+                .OrderByDescending(r => r.PickedCount)
                 .ThenBy(r => r.VersionName)
                 .ToListAsync();
         }

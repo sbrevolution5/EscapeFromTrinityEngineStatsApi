@@ -5,5 +5,4 @@ export interface CardPickRateDto {
     cardName: string;
     availableCount: number;
     pickedCount: number;
-    pickRate: number; // 0..1
 }
