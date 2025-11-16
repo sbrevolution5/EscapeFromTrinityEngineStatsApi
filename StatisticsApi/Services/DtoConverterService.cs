@@ -27,9 +27,18 @@ namespace StatisticsApi.Services
             BattleInstances = await _context.BattleInstances.ToHashSetAsync();
             EventInstances = await _context.EventInstances.ToHashSetAsync();
             var result = new GameResult();
-            result.GameVersion = await GetOrCreateGameVersionAsync(input.GameVersion);
-            result.GameVersionId = GameVersion.Id;
-            result.RunPerk = input.RunPerk;
+            GameVersion = await GetOrCreateGameVersionAsync(input.GameVersion);
+            if (GameVersion is not null)
+            {
+
+                result.GameVersion = GameVersion;
+                result.GameVersionId = GameVersion.Id;
+            }
+            else
+            {
+                throw new InvalidDataException("Failure to find game version in database!");
+            }
+                result.RunPerk = input.RunPerk;
             result.Win = input.Win;
             result.RemainingGold = input.RemainingGold;
             result.TotalGoldEarned = input.TotalGoldEarned;
@@ -61,8 +70,9 @@ namespace StatisticsApi.Services
 
             _context.GameVersions.Add(instance);
             await _context.SaveChangesAsync();
-            GameVersion = instance;
-            return instance;
+            
+            return await _context.GameVersions
+                .FirstOrDefaultAsync(g => g.VersionName == gameVersion);
         }
 
         private List<RoomRecord> GetRoomsFromDto(List<RoomRecordDto> input)
