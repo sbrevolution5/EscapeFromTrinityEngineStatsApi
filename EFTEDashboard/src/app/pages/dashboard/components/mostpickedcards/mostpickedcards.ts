@@ -27,16 +27,17 @@ export class Mostpickedcards implements OnInit {
 				.pipe(map((pr) => (pr ? pr : undefined)))
 				.subscribe({
 					next: (raw: any) => {
-						const pr = raw;
-						// Map API response to CardPickRate (API returns camelCase properties)
-						const mapped: CardPickRateDto = {
-							versionId: Number(pr?.versionId ?? pr?.VersionId ?? 0),
-							versionName: String(pr?.versionName ?? pr?.VersionName ?? ''),
-							cardInstanceId: Number(pr?.cardInstanceId ?? pr?.CardInstanceId ?? 0),
-							cardName: String(pr?.cardName ?? pr?.CardName ?? ''),
-							availableCount: Number(pr?.availableCount ?? pr?.AvailableCount ?? 0),
-							pickedCount: Number(pr?.pickedCount ?? pr?.PickedCount ?? 0)
-						};
+						// Map API response array to CardPickRateDto[] (API returns camelCase properties)
+						const mapped: CardPickRateDto[] = Array.isArray(raw)
+							? raw.map((pr: any) => ({
+									versionId: Number(pr?.versionId ?? pr?.VersionId ?? 0),
+									versionName: String(pr?.versionName ?? pr?.VersionName ?? ''),
+									cardInstanceId: Number(pr?.cardInstanceId ?? pr?.CardInstanceId ?? 0),
+									cardName: String(pr?.cardName ?? pr?.CardName ?? ''),
+									availableCount: Number(pr?.availableCount ?? pr?.AvailableCount ?? 0),
+									pickedCount: Number(pr?.pickedCount ?? pr?.PickedCount ?? 0)
+								}))
+							: [];
 						this.cardResults = mapped;
 						console.log('raw', raw);
 						console.log('mapped', this.cardResults);
