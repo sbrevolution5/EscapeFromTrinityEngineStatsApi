@@ -59,6 +59,7 @@ namespace StatisticsApi.Services
             };
 
             _context.GameVersions.Add(instance);
+            await _context.SaveChangesAsync();
             GameVersion = instance;
             return instance;
         }

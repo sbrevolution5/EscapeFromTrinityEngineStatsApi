@@ -16,6 +16,7 @@ builder.Services.AddScoped<IDtoConverterService, DtoConverterService>();
 builder.Services.AddScoped<IFetchDataService, FetchDataService>();
 builder.Services.AddScoped<IDashboardDataService, DashboardDataService>();
 builder.Services.AddScoped<ICardPickRateService, CardPickRateService>();
+builder.Services.AddScoped<IBattleFetchService,BattleFetchService>();
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
