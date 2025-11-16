@@ -97,6 +97,7 @@ namespace StatisticsApi.Services
                     result.EventRecord = GetEventRecordFromDto(item.EventRecordDto);
                 }
             }
+            
             _context.RoomRecords.Add(result);
             return result;
         }
@@ -134,6 +135,7 @@ namespace StatisticsApi.Services
             {
                 result.PassiveRecords = GetPassivesFromDto(rewardRecordDto.PassiveRecordDtos);
             }
+            result.Version = GameVersion;
             _context.RewardRecords.Add(result);
             return result;
 
@@ -152,6 +154,7 @@ namespace StatisticsApi.Services
 
                 });
             }
+            
             _context.RewardJunkCards.AddRange(result);
             return result;
         }
