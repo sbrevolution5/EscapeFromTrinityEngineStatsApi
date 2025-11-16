@@ -28,6 +28,7 @@ namespace StatisticsApi.Services
             EventInstances = await _context.EventInstances.ToHashSetAsync();
             var result = new GameResult();
             result.GameVersion = await GetOrCreateGameVersionAsync(input.GameVersion);
+            result.GameVersionId = GameVersion.Id;
             result.RunPerk = input.RunPerk;
             result.Win = input.Win;
             result.RemainingGold = input.RemainingGold;
@@ -107,6 +108,8 @@ namespace StatisticsApi.Services
         {
             var result = new RewardRecord();
             result.Version = GameVersion;
+            result.VersionId = GameVersion.Id;
+
             result.GoldGained = rewardRecordDto.GoldGained;
             if (rewardRecordDto.GivenTradeCards is not null && rewardRecordDto.GivenTradeCards.Count > 0)
             {
@@ -136,7 +139,6 @@ namespace StatisticsApi.Services
             {
                 result.PassiveRecords = GetPassivesFromDto(rewardRecordDto.PassiveRecordDtos);
             }
-            result.Version = GameVersion;
             _context.RewardRecords.Add(result);
             return result;
 
@@ -207,6 +209,7 @@ namespace StatisticsApi.Services
         {
             var result = new CardChoiceRecord();
             result.Version = GameVersion;
+            result.VersionId = GameVersion.Id;
             result.RerolledCards = new List<RerolledCardCardInstance>();
             result.UpgradePicked = item.UpgradePicked;
             result.CardPicked = GetOrCreateCardInstance(item.CardPicked);
@@ -287,6 +290,7 @@ namespace StatisticsApi.Services
         {
             var result = new BattleRecord();
             result.Version = GameVersion;
+            result.VersionId = GameVersion.Id;
             result.Character1CardsPlayed = battleRecordDto.Character1CardsPlayed;
             result.Character2CardsPlayed = battleRecordDto.Character2CardsPlayed;
             result.Character3CardsPlayed = battleRecordDto.Character3CardsPlayed;
@@ -339,6 +343,7 @@ namespace StatisticsApi.Services
         {
             var result = new EventRecord();
             result.Version = GameVersion;
+            result.VersionId = GameVersion.Id;
 
             result.EventInstance = GetOrCreateEventInstance(eventRecordDto.Name);
             result.TeamworkOnEnter = eventRecordDto.TeamworkOnEnter;
@@ -368,6 +373,7 @@ namespace StatisticsApi.Services
         {
             var result = new ShopRecord();
             result.Version = GameVersion;
+            result.VersionId = GameVersion.Id;
             result.AffordableCards = GetAffordableCardsFromDto(shopRecordDto, result);
             result.AffordablePassives = GetAffordablePassivesFromDto(shopRecordDto, result);
             result.PurchasedCards = GetPurchasedCardsFromDto(shopRecordDto, result);
@@ -464,6 +470,7 @@ namespace StatisticsApi.Services
         {
             var result = new CharacterRecord();
             result.Version = GameVersion;
+            result.VersionId = GameVersion.Id;
             result.CharacterInstance = await GetOrCreateCharacterInstanceAsync(c.Name);
             List<CardRecord> deckResult = GetDecklistFromCharacterDto(c);
             result.DeckRecord = deckResult;
