@@ -166,6 +166,8 @@ namespace StatisticsApi.Context
             });
 
         }
+        public DbSet<BattleRecord> BattleRecords { get; set; }
+        public DbSet<CharacterRecord> CharacterRecords { get; set; }
         public DbSet<GameResult> GameResults { get; set; }
         public DbSet<GameVersion> GameVersions { get; set; }
         public DbSet<CharacterInstance> CharacterInstances { get; set; }

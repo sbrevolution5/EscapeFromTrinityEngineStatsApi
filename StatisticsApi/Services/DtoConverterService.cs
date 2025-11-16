@@ -97,6 +97,7 @@ namespace StatisticsApi.Services
                     result.EventRecord = GetEventRecordFromDto(item.EventRecordDto);
                 }
             }
+            _context.RoomRecords.Add(result);
             return result;
         }
 
@@ -133,6 +134,7 @@ namespace StatisticsApi.Services
             {
                 result.PassiveRecords = GetPassivesFromDto(rewardRecordDto.PassiveRecordDtos);
             }
+            _context.RewardRecords.Add(result);
             return result;
 
 
@@ -150,6 +152,7 @@ namespace StatisticsApi.Services
 
                 });
             }
+            _context.RewardJunkCards.AddRange(result);
             return result;
         }
 
@@ -165,6 +168,7 @@ namespace StatisticsApi.Services
 
                 });
             }
+            _context.RewardRemovedCards.AddRange(result);
             return result;
         }
 
@@ -180,6 +184,7 @@ namespace StatisticsApi.Services
 
                 });
             }
+            _context.RewardUpgradedCards.AddRange(result);
             return result;
         }
 
@@ -213,6 +218,7 @@ namespace StatisticsApi.Services
                     result.RerolledCards.Add(GetRerolledCardFromDto(card, result));
                 }
             }
+            _context.CardChoiceRecords.Add(result);
             return result;
         }
 
@@ -224,6 +230,7 @@ namespace StatisticsApi.Services
                 CardInstance = GetOrCreateCardInstance(card)
 
             };
+            _context.RerolledCardCardInstances.Add(result);
             return result;
         }
 
@@ -237,6 +244,7 @@ namespace StatisticsApi.Services
                 CardInstance = GetOrCreateCardInstance(choice)
 
             };
+            _context.CardChoiceCards.Add(result);
             return result;
         }
         private List<RewardRecievedTradeCards> GetRecievedTradeCardsFromDto(RewardRecordDto dto, RewardRecord record)
@@ -251,6 +259,7 @@ namespace StatisticsApi.Services
 
                 });
             }
+            _context.RewardRecievedTradeCards.AddRange(result);
             return result;
         }
 
@@ -266,6 +275,7 @@ namespace StatisticsApi.Services
 
                 });
             }
+            _context.RewardGivenTradeCards.AddRange(result);
             return result;
         }
 
@@ -296,6 +306,7 @@ namespace StatisticsApi.Services
             result.RoundsElapsed = battleRecordDto.RoundsElapsed;
             result.LevelEncountered = battleRecordDto.LevelEncountered;
             result.BattleInstance = GetOrCreateBattleInstance(battleRecordDto.Name, battleRecordDto.Tier);
+            _context.BattleRecords.Add(result);
             return result;
         }
 
@@ -327,6 +338,7 @@ namespace StatisticsApi.Services
 
             result.EventInstance = GetOrCreateEventInstance(eventRecordDto.Name);
             result.TeamworkOnEnter = eventRecordDto.TeamworkOnEnter;
+            _context.EventRecords.Add(result);
             return result;
 
         }
@@ -368,6 +380,7 @@ namespace StatisticsApi.Services
             }
             result.GoldSpent = shopRecordDto.GoldSpent;
             result.GoldEntered = shopRecordDto.GoldEntered;
+            _context.ShopRecords.Add(result);
             return result;
         }
 
@@ -383,6 +396,7 @@ namespace StatisticsApi.Services
 
                 });
             }
+            _context.ShopAffordableCards.AddRange(result);
             return result;
         }
         private List<ShopAffordablePassive> GetAffordablePassivesFromDto(ShopRecordDto dto, ShopRecord record)
@@ -397,6 +411,7 @@ namespace StatisticsApi.Services
 
                 });
             }
+            _context.ShopAffordablePassives.AddRange(result);
             return result;
         }
         private List<ShopPurchasedPassive> GetPurchasedPassivesFromDto(ShopRecordDto dto, ShopRecord record)
@@ -412,6 +427,7 @@ namespace StatisticsApi.Services
 
                 });
             }
+            _context.ShopPurchasedPassives.AddRange(result);
             return result;
         }
         private List<ShopPurchasedCard> GetPurchasedCardsFromDto(ShopRecordDto dto, ShopRecord record)
@@ -425,6 +441,7 @@ namespace StatisticsApi.Services
                     CardInstance = GetOrCreateCardInstance(item)
                 });
             }
+            _context.ShopPurchasedCards.AddRange(result);
             return result;
         }
 
@@ -435,6 +452,7 @@ namespace StatisticsApi.Services
             {
                 result.Add(await CharacterFromDtoAsync(c));
             }
+            _context.CharacterRecords.AddRange(result);
             return result;
         }
 
@@ -456,6 +474,7 @@ namespace StatisticsApi.Services
             {
                 result.Add(GetCardRecordFromDto(card));
             }
+            _context.CardRecords.AddRange(result);
             return result;
 
         }
@@ -496,6 +515,7 @@ namespace StatisticsApi.Services
             {
                 result.Add(GetPassiveRecordFromDto(item));
             }
+            _context.PassiveRecords.AddRange(result);
             return result;
         }
 
