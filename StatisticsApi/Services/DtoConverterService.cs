@@ -482,6 +482,7 @@ namespace StatisticsApi.Services
             result.Version = GameVersion;
             result.VersionId = GameVersion.Id;
             result.CharacterInstance = await GetOrCreateCharacterInstanceAsync(c.Name);
+            result.PartySlot = c.PartySlot;
             List<CardRecord> deckResult = GetDecklistFromCharacterDto(c);
             result.DeckRecord = deckResult;
             return result;
@@ -525,7 +526,7 @@ namespace StatisticsApi.Services
             };
 
             _context.CharacterInstances.Add(instance);
-
+            await _context.SaveChangesAsync();
             return instance;
         }
 

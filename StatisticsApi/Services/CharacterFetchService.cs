@@ -31,8 +31,8 @@ namespace StatisticsApi.Services
                     new CharacterInstancePopularityOutputDto()
                     {
                         Name = character.Name,
-                        Plays = results.Where(g => g.Characters.Any(c => c.CharacterInstance == character)).Count(),
-                        Wins = results.Where(g => g.Characters.Any(c => c.CharacterInstance == character) && g.Win).Count()
+                        Plays = results.Where(g => g.Characters.Any(c => c.CharacterInstance.Id == character.Id)).Count(),
+                        Wins = results.Where(g => g.Characters.Any(c => c.CharacterInstance.Id == character.Id) && g.Win).Count()
                     });
             }
             return res;
