@@ -1,41 +1,75 @@
+import { CharacterPopularityDto } from '@/interfaces/outputDtos/character-popularity-dto';
 import { LayoutService } from '@/layout/service/layout.service';
+import { CharacterPopularityService } from '@/services/character-popularity-service';
 import { Component } from '@angular/core';
-import { UIChart } from "primeng/chart";
-import { debounceTime, Subscription } from 'rxjs';
+import { UIChart } from 'primeng/chart';
+import { debounceTime, map, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-character-popularity-component',
-  imports: [UIChart],
-  templateUrl: './character-popularity-component.html',
-  styleUrl: './character-popularity-component.scss'
+	selector: 'app-character-popularity-component',
+	imports: [UIChart],
+	templateUrl: './character-popularity-component.html',
+	styleUrl: './character-popularity-component.scss'
 })
 export class CharacterPopularityComponent {
-pieData: any;
+	pieData: any;
+	characterPopularityData: CharacterPopularityDto | undefined;
+	pieOptions: any;
 
-    pieOptions: any;
+	subscription!: Subscription;
 
-    subscription!: Subscription;
+	constructor(
+		public layoutService: LayoutService,
+		public characterPopularityService: CharacterPopularityService
+	) {
+		this.subscription = this.layoutService.configUpdate$.pipe(debounceTime(25)).subscribe(() => {
+			this.initChart();
+		});
+	}
 
-    constructor(public layoutService: LayoutService) {
-        this.subscription = this.layoutService.configUpdate$.pipe(debounceTime(25)).subscribe(() => {
-            this.initChart();
-        });
-    }
+	ngOnInit() {
+		this.characterPopularityService
+			.getAll()
+			.pipe(map((cp) => (cp ? cp : undefined)))
+			.subscribe({
+				next: (raw: any) => {
+					// Map API response array to CardPickRateDto[] (API returns camelCase properties)
+					const mapped: CharacterPopularityDto = {
+						versionId: Number(raw?.versionId ?? raw?.VersionId ?? 0),
+						specificVersion: Boolean(raw?.versionName ?? raw?.VersionName ?? ''),
+						characters: Array.isArray(raw.characters)
+							? raw.characters.map((charRecord: any) => ({
+									name: String(charRecord?.name ?? charRecord?.Name ?? ''),
+									plays: Number(charRecord?.plays ?? charRecord?.Plays ?? 0),
+									wins: Number(charRecord?.wins ?? charRecord?.Wins ?? 0)
+								}))
+							: [],
+						totalGames: Number(raw?.totalGames ?? raw?.TotalGames ?? 0)
+					};
 
-    ngOnInit() {
-        
-        this.initChart();
-    }
+					this.characterPopularityData = mapped;
+					console.log('raw', raw);
+					console.log('mapped', this.characterPopularityData);
+				},
+				error: (err) => {
+					console.error('Could not fetch pick rates from API', err);
+					this.characterPopularityData = undefined;
+				}
+			});
 
-    initChart() {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
 
-        this.pieData = {
-			labels: ['A', 'B', 'C'],
+		this.initChart();
+	}
+
+	initChart() {
+		const documentStyle = getComputedStyle(document.documentElement);
+		const textColor = documentStyle.getPropertyValue('--text-color');
+
+		this.pieData = {
+			labels: this.characterPopularityData?.characters.map((c) => c.name) ?? ['Character A', 'Character B', 'Character C'],
 			datasets: [
 				{
-					data: [540, 325, 702],
+					data: this.characterPopularityData?.characters.map((c) => c.plays) ?? [300, 500, 200],
 					backgroundColor: [documentStyle.getPropertyValue('--p-indigo-500'), documentStyle.getPropertyValue('--p-purple-500'), documentStyle.getPropertyValue('--p-teal-500')],
 					hoverBackgroundColor: [documentStyle.getPropertyValue('--p-indigo-400'), documentStyle.getPropertyValue('--p-purple-400'), documentStyle.getPropertyValue('--p-teal-400')]
 				}
@@ -52,11 +86,11 @@ pieData: any;
 				}
 			}
 		};
-    }
+	}
 
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
+	ngOnDestroy() {
+		if (this.subscription) {
+			this.subscription.unsubscribe();
+		}
+	}
 }

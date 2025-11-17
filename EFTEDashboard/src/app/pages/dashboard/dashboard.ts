@@ -2,19 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotificationsWidget } from './components/notificationswidget';
 import { StatsWidget } from './components/statswidget';
-import { RecentSalesWidget } from './components/recentsaleswidget';
 import { BestSellingWidget } from './components/bestsellingwidget';
-import { RevenueStreamWidget } from './components/revenuestreamwidget';
 import { DashboardControllerService } from '@/services/dashboard-controller-service';
 import { Mostpickedcards } from './components/mostpickedcards/mostpickedcards';
 import { DashboardStatsDto } from '@/interfaces/outputDtos/dashboard-stats-dto';
 import { map } from 'rxjs';
 import { GameVersion } from '@/interfaces/game-version';
+import { CharacterPopularityComponent } from "./components/character-popularity-component/character-popularity-component";
 
 @Component({
 	selector: 'app-dashboard',
 	standalone: true,
-	imports: [CommonModule, StatsWidget, BestSellingWidget, RevenueStreamWidget, NotificationsWidget, Mostpickedcards],
+	imports: [CommonModule, StatsWidget, BestSellingWidget, NotificationsWidget, Mostpickedcards, CharacterPopularityComponent],
 	template: `
 		<div class="grid grid-cols-12 gap-8">
 			<app-stats-widget *ngIf="dashStats" [dashStats]="dashStats" class="contents"></app-stats-widget>
@@ -25,7 +24,7 @@ import { GameVersion } from '@/interfaces/game-version';
 				<app-best-selling-widget></app-best-selling-widget>
 			</div>
 			<div class="col-span-12 xl:col-span-6">
-				<app-revenue-stream-widget></app-revenue-stream-widget>
+				<app-character-popularity-component></app-character-popularity-component>
 				<app-notifications-widget></app-notifications-widget>
 			</div>
 		</div>
