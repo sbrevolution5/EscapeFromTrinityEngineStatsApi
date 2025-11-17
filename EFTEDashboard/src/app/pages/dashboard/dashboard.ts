@@ -8,7 +8,7 @@ import { Mostpickedcards } from './components/mostpickedcards/mostpickedcards';
 import { DashboardStatsDto } from '@/interfaces/outputDtos/dashboard-stats-dto';
 import { map } from 'rxjs';
 import { GameVersion } from '@/interfaces/game-version';
-import { CharacterPopularityComponent } from "./components/character-popularity-component/character-popularity-component";
+import { CharacterPopularityComponent } from './components/character-popularity-component/character-popularity-component';
 
 @Component({
 	selector: 'app-dashboard',
@@ -16,10 +16,12 @@ import { CharacterPopularityComponent } from "./components/character-popularity-
 	imports: [CommonModule, StatsWidget, BestSellingWidget, NotificationsWidget, Mostpickedcards, CharacterPopularityComponent],
 	template: `
 		<div class="grid grid-cols-12 gap-8">
-			<app-stats-widget *ngIf="dashStats" [dashStats]="dashStats" class="contents"></app-stats-widget>
+			@if (dashStats != null) {
+				<app-stats-widget [dashStats]="dashStats" class="contents"></app-stats-widget>
+			}
 			<div class="col-span-12 xl:col-span-6">
 				@if (currentVersion != null) {
-					<app-mostpickedcards  [mostRecentVersionId]="currentVersion" ></app-mostpickedcards>
+					<app-mostpickedcards [mostRecentVersionId]="currentVersion"></app-mostpickedcards>
 				}
 				<app-best-selling-widget></app-best-selling-widget>
 			</div>
