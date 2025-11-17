@@ -9,8 +9,8 @@
     }
     public class CharacterInstancePopularityOutputDto
     {
-        public string Name;
-        public int Plays;
-        public int Wins;
+        public string Name { get; set; }
+        public int Plays { get; set; }
+        public int Wins { get; set; }
     }
 }

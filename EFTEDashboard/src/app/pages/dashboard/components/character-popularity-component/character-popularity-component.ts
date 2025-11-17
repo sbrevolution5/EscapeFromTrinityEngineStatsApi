@@ -33,6 +33,7 @@ export class CharacterPopularityComponent {
 			.pipe(map((cp) => (cp ? cp : undefined)))
 			.subscribe({
 				next: (raw: any) => {
+                    console.log('raw data received', raw);
 					// Map API response array to CardPickRateDto[] (API returns camelCase properties)
 					const mapped: CharacterPopularityDto = {
 						versionId: Number(raw?.versionId ?? raw?.VersionId ?? 0),
@@ -48,7 +49,6 @@ export class CharacterPopularityComponent {
 					};
 
 					this.characterPopularityData = mapped;
-					console.log('raw', raw);
 					console.log('mapped', this.characterPopularityData);
 				},
 				error: (err) => {

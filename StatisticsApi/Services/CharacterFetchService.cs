@@ -23,17 +23,20 @@ namespace StatisticsApi.Services
             {
                 res.VersionId = versionId;
                 res.SpecificVersion = true;
-                res.TotalGames = results.Count;
             }
+            res.TotalGames = results.Count;
             foreach (var character in characters)
             {
-                res.Characters.Add(
+                var plays = results.Where(g => g.Characters.Any(c => c.CharacterInstance.Id == character.Id)).Count();
+                var wins = results.Where(g => g.Characters.Any(c => c.CharacterInstance.Id == character.Id) && g.Win).Count();
+                CharacterInstancePopularityOutputDto subdto = 
                     new CharacterInstancePopularityOutputDto()
                     {
                         Name = character.Name,
-                        Plays = results.Where(g => g.Characters.Any(c => c.CharacterInstance.Id == character.Id)).Count(),
-                        Wins = results.Where(g => g.Characters.Any(c => c.CharacterInstance.Id == character.Id) && g.Win).Count()
-                    });
+                        Plays = plays,
+                        Wins = wins
+                    };
+                res.Characters.Add(subdto);
             }
             return res;
         }
