@@ -9,11 +9,12 @@ import { DashboardStatsDto } from '@/interfaces/outputDtos/dashboard-stats-dto';
 import { map } from 'rxjs';
 import { GameVersion } from '@/interfaces/game-version';
 import { CharacterPopularityComponent } from './components/character-popularity-component/character-popularity-component';
+import { BattleStatsComponent } from './components/battle-stats-component/battle-stats-component';
 
 @Component({
 	selector: 'app-dashboard',
 	standalone: true,
-	imports: [CommonModule, StatsWidget, BestSellingWidget, NotificationsWidget, Mostpickedcards, CharacterPopularityComponent],
+	imports: [CommonModule, StatsWidget, BestSellingWidget, Mostpickedcards, CharacterPopularityComponent, BattleStatsComponent],
 	template: `
 		<div class="grid grid-cols-12 gap-8">
 			@if (dashStats != null) {
@@ -27,7 +28,7 @@ import { CharacterPopularityComponent } from './components/character-popularity-
 			</div>
 			<div class="col-span-12 xl:col-span-6">
 				<app-character-popularity-component></app-character-popularity-component>
-				<app-notifications-widget></app-notifications-widget>
+				<app-battle-stats-component></app-battle-stats-component>
 			</div>
 		</div>
 	`
