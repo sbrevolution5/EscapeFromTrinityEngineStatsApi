@@ -44,14 +44,14 @@ namespace StatisticsApi.Services
                 var instanceRecords = records.Where(b => b.BattleInstance == instance).ToList();
                 var instanceDto = new BattleInstanceOutputDto()
                 {
-                    AverageCardsPlayed = instanceRecords.Average(b => b.Character1CardsPlayed + b.Character2CardsPlayed + b.Character3CardsPlayed),
-                    AverageDamageDealt = instanceRecords.Average(b => b.Character1CardsPlayed + b.Character2CardsPlayed + b.Character3CardsPlayed),
-                    AverageDamageTaken = instanceRecords.Average(b => GetDamageTaken(b)),
-                    AverageDamageTakenWhenInactive = instanceRecords.Where(b => b.CharacterResting != -1).Average(b => GetDamageTaken(b, b.CharacterResting)),
-                    AverageFloor = instanceRecords.Average(b => b.FloorEncountered * (b.LevelEncountered + 1)),
-                    AverageNumberOfDowns = instanceRecords.Average(GetDowns),
-                    AverageTeamworkGained = instanceRecords.Average(b => b.TeamworkEnd - b.TeamworkStart),
-                    AverageTurnsElapsed = instanceRecords.Average(b => b.RoundsElapsed),
+                    AverageCardsPlayed = instanceRecords.DefaultIfEmpty().Average(b => b.Character1CardsPlayed + b.Character2CardsPlayed + b.Character3CardsPlayed),
+                    AverageDamageDealt = instanceRecords.DefaultIfEmpty().Average(b => b.Character1CardsPlayed + b.Character2CardsPlayed + b.Character3CardsPlayed),
+                    AverageDamageTaken = instanceRecords.DefaultIfEmpty().Average(b => GetDamageTaken(b)),
+                    AverageDamageTakenWhenInactive = instanceRecords.Where(b => b.CharacterResting != -1).DefaultIfEmpty().Average(b => GetDamageTaken(b, b.CharacterResting)),
+                    AverageFloor = instanceRecords.DefaultIfEmpty().Average(b => b.FloorEncountered * (b.LevelEncountered + 1)),
+                    AverageNumberOfDowns = instanceRecords.DefaultIfEmpty().Average(GetDowns),
+                    AverageTeamworkGained = instanceRecords.DefaultIfEmpty().Average(b => b.TeamworkEnd - b.TeamworkStart),
+                    AverageTurnsElapsed = instanceRecords.DefaultIfEmpty().Average(b => b.RoundsElapsed),
                     Name = instance.Name,
                     Tier = instance.Tier,
                     NumberOfBattles = instanceRecords.Count,
