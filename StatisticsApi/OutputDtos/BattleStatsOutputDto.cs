@@ -2,9 +2,9 @@
 {
     public class BattleStatsOutputDto
     {
-        public List<BattleInstanceOutputDto> BattleObjects = new();
-        public int VersionId = 0;
-        public string VersionName = "";
+        public List<BattleInstanceOutputDto> BattleObjects { get; set; } = new();
+        public int VersionId { get; set; } = 0;
+        public string VersionName { get; set; } = "";
     }
     public class BattleInstanceOutputDto
     {
