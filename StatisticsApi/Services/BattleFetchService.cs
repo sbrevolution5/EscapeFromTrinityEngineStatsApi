@@ -32,6 +32,10 @@ namespace StatisticsApi.Services
                 records = await _context.BattleRecords.Include(b => b.BattleInstance).Include(b => b.Version).Where(b => b.VersionId == versionId).ToListAsync();
                 versionName = records.FirstOrDefault()?.Version.VersionName;
             }
+            if (records.Count < 0)
+            {
+                throw new InvalidDataException("0 records found for battles");
+            }
             var res = new BattleStatsOutputDto()
             {
                 VersionId = versionId,
@@ -39,6 +43,10 @@ namespace StatisticsApi.Services
             };
             var battles = new List<BattleInstanceOutputDto>();
             var instances = records.Select(b => b.BattleInstance).DistinctBy(b => b.Id).ToList();
+            if (instances.Count < 0)
+            {
+                throw new InvalidDataException("0 instances found for battles");
+            }
             foreach (var instance in instances)
             {
                 var instanceRecords = records.Where(b => b.BattleInstance.Id == instance.Id).ToList();
