@@ -41,7 +41,6 @@ namespace StatisticsApi.Services
                 VersionId = versionId,
                 VersionName = versionName,
             };
-            var battles = new List<BattleInstanceOutputDto>();
             var instances = records.Select(b => b.BattleInstance).DistinctBy(b => b.Id).ToList();
             if (instances.Count < 0)
             {
