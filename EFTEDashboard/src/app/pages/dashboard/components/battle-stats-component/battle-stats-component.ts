@@ -6,13 +6,13 @@ import { InputIcon } from "primeng/inputicon";
 import { MultiSelect } from "primeng/multiselect";
 import { Select } from "primeng/select";
 import { Slider } from "primeng/slider";
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
 import { Tag } from "primeng/tag";
 import { ProgressBar } from "primeng/progressbar";
 
 @Component({
 	selector: 'app-battle-stats-component',
-	imports: [TableModule, IconField, InputIcon, MultiSelect, Select, Slider, DatePipe, Tag, ProgressBar],
+	imports: [TableModule, IconField, InputIcon, MultiSelect, Select, Slider, DatePipe, Tag, ProgressBar,PercentPipe,DecimalPipe],
 	templateUrl: './battle-stats-component.html',
 	styleUrl: './battle-stats-component.scss'
 })
