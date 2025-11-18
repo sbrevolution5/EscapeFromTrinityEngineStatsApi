@@ -33,5 +33,6 @@ namespace EscapeFromTrinityEngineStats.Models.InputDto
         public bool Character3Downed{ get; set; }
         public int GoldGained{ get; set; }
         public int RoundsElapsed{ get; set; }
+        public bool WonBattle { get; set; }
     }
 }
