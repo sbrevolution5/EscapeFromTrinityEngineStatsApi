@@ -1,4 +1,5 @@
 ﻿using EscapeFromTrinityEngineStats.Models;
+using StatisticsApi.OutputDtos;
 
 namespace StatisticsApi.Services
 {
@@ -6,5 +7,6 @@ namespace StatisticsApi.Services
     {
         
         Task<IEnumerable<BattleRecord>> GetAllBattleRecordsAsync();
+        Task<BattleStatsOutputDto> GetBattleStats(int versionId = 0);
     }
 }

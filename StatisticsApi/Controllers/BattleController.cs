@@ -1,5 +1,6 @@
 ﻿using EscapeFromTrinityEngineStats.Models;
 using Microsoft.AspNetCore.Mvc;
+using StatisticsApi.OutputDtos;
 using StatisticsApi.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,18 +20,19 @@ namespace StatisticsApi.Controllers
 
         // GET: api/<BattleController>
         [HttpGet]
-        public async Task<IEnumerable<BattleRecord>> GetAsync()
+        public async Task<BattleStatsOutputDto> GetAsync()
         {
-            return await _battleService.GetAllBattleRecordsAsync();
+            return await _battleService.GetBattleStats();
         }
 
         // GET api/<BattleController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<BattleStatsOutputDto> GetAsync(int id)
         {
-            return "value";
+            return await _battleService.GetBattleStats(id);
+
         }
-        
+
         // POST api/<BattleController>
         [HttpPost]
         public void Post([FromBody] string value)
