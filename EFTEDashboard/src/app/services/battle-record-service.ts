@@ -1,4 +1,5 @@
 import { BattleRecord } from '@/interfaces/battle-record';
+import { BattleStatsOutputDto } from '@/interfaces/outputDtos/battle-stats-output-dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
@@ -13,7 +14,7 @@ export class BattleRecordService {
 	constructor(private http: HttpClient) {}
 
 	// GET /GameResult
-	getAll(): Observable<BattleRecord[]> {
-		return this.http.get<BattleRecord[]>(`${this.baseUrl}/Battle`).pipe(map((list) => (list ?? [])));
+	getAll(): Observable<BattleStatsOutputDto> {
+		return this.http.get<BattleStatsOutputDto>(`${this.baseUrl}/Battle`).pipe(map((list) => (list ?? [])));
 	}
 }
