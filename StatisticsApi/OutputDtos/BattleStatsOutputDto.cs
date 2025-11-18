@@ -11,7 +11,7 @@
         public string Name { get; set; } = "";
         public int NumberOfBattles { get; set; }
         public int Wins { get; set; }
-        public double Winrate { get; set; }
+        public double Winrate { get; set; } = 0.0;
         public int Tier {  get; set; }
         public double AverageTurnsElapsed { get; set; }
         public double AverageDamageTaken { get; set; }
@@ -21,7 +21,7 @@
         public double RestingRatio { get; set; }
         public double AverageTeamworkGained { get; set; }
         public double AverageCardsPlayed { get; set; }
-        public double CharacterDownedRatio { get; set; }
+        public double CharacterDownedRatio { get; set; } = 0.0;
         public double AverageNumberOfDowns { get; set; }
     }
 }
