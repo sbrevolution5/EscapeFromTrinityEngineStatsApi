@@ -2,40 +2,9 @@
     <div class="flex justify-between items-center mb-6">
         <div class="font-semibold text-xl">Most Picked Cards</div>
     </div>
-    <p-table #dv  [value]="cardResults" [rows]="5" [paginator]="true" [rowsPerPageOptions]="[5,10,20]">
-<ng-template #header>
-    <tr>
-        <th pSortableColumn="cardName">Card Name
-            <p-sortIcon field="cardName"></p-sortIcon>
-        </th>
-        <th>Pick Rate</th>
-
-    </tr>
-</ng-template>
-
-
-    <ng-template #body let-cards>
-        <tr>
-            <td>
-                <div>
-        <span
-            class="text-surface-900 dark:text-surface-0 font-medium mr-2 mb-1 md:mb-0">{{cards.cardName}}</span>
-        <div class="mt-1 text-muted-color">{{cards.pickedCount}}/{{cards.availableCount}}</div>
-    </div>
-            </td>
-            <td>
-                <div class="bg-surface-300 dark:bg-surface-500 rounded-border overflow-hidden w-40 lg:w-24" style="height: 8px">
-            <div class="bg-orange-500 h-full" style="width: 50%"></div>
-        </div>
-        @if(cards.availableCount > 0){
-        <span
-            class="text-orange-500 ml-4 font-medium">{{cards.pickedCount/cards.availableCount | percent :'1.2-2'}}</span>}
-            </td>
-        </tr>
-
-    </ng-template>
-</p-table>
     <ul class="list-none p-0 m-0">
-
+        @for(item of cardResults; track item.id){
+            <app-pickedcardrow [cardPickRateDto]="item"></app-pickedcardrow>
+        }
     </ul>
 </div>
