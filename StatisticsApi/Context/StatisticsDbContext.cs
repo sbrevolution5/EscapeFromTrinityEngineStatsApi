@@ -164,6 +164,15 @@ namespace StatisticsApi.Context
                 .WithMany()
                 .HasForeignKey(e => e.CardInstanceId);
             });
+            modelBuilder.Entity<CardInstance>(e =>
+            {
+                e.HasKey(e => e.Id);
+                e.HasOne(e => e.Character)
+                    .WithMany()
+                    .HasForeignKey(e => e.CharacterId)
+                    .IsRequired(false)
+                    .OnDelete(DeleteBehavior.SetNull);
+            });
 
         }
         public DbSet<BattleRecord> BattleRecords { get; set; }

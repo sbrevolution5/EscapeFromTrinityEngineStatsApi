@@ -505,18 +505,38 @@ namespace StatisticsApi.Services
         private CardRecord GetCardRecordFromDto(CardRecordDto card)
         {
             var result = new CardRecord();
+            
+            CharacterInstance? character = null;
+            if (!card.Junk && !string.IsNullOrWhiteSpace(card.CharacterName))
+            {
+                character = GetOrCreateCharacterInstanceSync(card.CharacterName);
+            }
 
-            result.CardInstance = GetOrCreateCardInstance(card.Name, card.Rarity);
+            var cardInstance = GetOrCreateCardInstance(card.Name, card.Rarity);
+            cardInstance.Junk = card.Junk;
+            
+            if (character != null)
+            {
+                cardInstance.CharacterId = character.Id;
+                cardInstance.Character = character;
+            }
+            else
+            {
+                cardInstance.CharacterId = 0;
+                cardInstance.Character = null;
+            }
+
+            result.CardInstance = cardInstance;
             result.PartySlot = card.PartySlot;
             return result;
         }
 
-        private async Task<CharacterInstance> GetOrCreateCharacterInstanceAsync(string name)
+        private CharacterInstance GetOrCreateCharacterInstanceSync(string name)
         {
             name = name.Trim();
 
-            var instance = await _context.CharacterInstances
-                .FirstOrDefaultAsync(c => c.Name == name);
+            var instance = _context.CharacterInstances
+        .FirstOrDefault(c => c.Name == name);
 
             if (instance != null)
                 return instance;
@@ -527,7 +547,7 @@ namespace StatisticsApi.Services
             };
 
             _context.CharacterInstances.Add(instance);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return instance;
         }
 
