@@ -339,12 +339,6 @@ namespace StatisticsApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("Junk")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -353,8 +347,6 @@ namespace StatisticsApi.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CharacterId");
 
                     b.ToTable("CardInstances");
                 });
@@ -836,16 +828,6 @@ namespace StatisticsApi.Migrations
                         .IsRequired();
 
                     b.Navigation("GameVersion");
-                });
-
-            modelBuilder.Entity("EscapeFromTrinityEngineStats.Models.Instances.CardInstance", b =>
-                {
-                    b.HasOne("EscapeFromTrinityEngineStats.Models.Instances.CharacterInstance", "Character")
-                        .WithMany()
-                        .HasForeignKey("CharacterId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Character");
                 });
 
             modelBuilder.Entity("EscapeFromTrinityEngineStats.Models.Instances.EventChoiceInstance", b =>
