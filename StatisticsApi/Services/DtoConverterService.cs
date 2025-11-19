@@ -15,6 +15,7 @@ namespace StatisticsApi.Services
         public HashSet<PassiveInstance> PassiveInstances { get; private set; } = new HashSet<PassiveInstance>();
         public HashSet<BattleInstance> BattleInstances { get; private set; } = new HashSet<BattleInstance>();
         public HashSet<EventInstance> EventInstances { get; private set; } = new HashSet<EventInstance>();
+        public HashSet<CharacterInstance> CharacterInstances { get; private set; } = new HashSet<CharacterInstance>();
         public GameVersion GameVersion { get; private set; }
         public DtoConverterService(StatisticsDbContext context)
         {
@@ -26,6 +27,7 @@ namespace StatisticsApi.Services
             PassiveInstances = await _context.PassiveInstances.ToHashSetAsync();
             BattleInstances = await _context.BattleInstances.ToHashSetAsync();
             EventInstances = await _context.EventInstances.ToHashSetAsync();
+            CharacterInstances = await _context.CharacterInstances.ToHashSetAsync();
             var result = new GameResult();
             GameVersion = await GetOrCreateGameVersionAsync(input.GameVersion);
             if (GameVersion is not null)
@@ -471,18 +473,18 @@ namespace StatisticsApi.Services
             var result = new List<CharacterRecord>();
             foreach (var c in input.CharacterDtos)
             {
-                result.Add(await CharacterFromDtoAsync(c));
+                result.Add(CharacterFromDto(c));
             }
             _context.CharacterRecords.AddRange(result);
             return result;
         }
 
-        private async Task<CharacterRecord> CharacterFromDtoAsync(CharacterRecordDto c)
+        private CharacterRecord CharacterFromDto(CharacterRecordDto c)
         {
             var result = new CharacterRecord();
             result.Version = GameVersion;
             result.VersionId = GameVersion.Id;
-            result.CharacterInstance = await GetOrCreateCharacterInstanceAsync(c.Name);
+            result.CharacterInstance = GetOrCreateCharacterInstance(c.Name);
             result.PartySlot = c.PartySlot;
             List<CardRecord> deckResult = GetDecklistFromCharacterDto(c);
             result.DeckRecord = deckResult;
@@ -505,18 +507,38 @@ namespace StatisticsApi.Services
         private CardRecord GetCardRecordFromDto(CardRecordDto card)
         {
             var result = new CardRecord();
+            
+            CharacterInstance? character = null;
+            if (!card.Junk && !string.IsNullOrWhiteSpace(card.CharacterName))
+            {
+                character = GetOrCreateCharacterInstance(card.CharacterName);
+            }
 
-            result.CardInstance = GetOrCreateCardInstance(card.Name, card.Rarity);
+            var cardInstance = GetOrCreateCardInstance(card.Name, card.Rarity);
+            cardInstance.Junk = card.Junk;
+            
+            if (character != null)
+            {
+                cardInstance.CharacterId = character.Id;
+                cardInstance.Character = character;
+            }
+            else
+            {
+                cardInstance.CharacterId = null;
+                cardInstance.Character = null;
+            }
+
+            result.CardInstance = cardInstance;
             result.PartySlot = card.PartySlot;
             return result;
         }
 
-        private async Task<CharacterInstance> GetOrCreateCharacterInstanceAsync(string name)
+        private CharacterInstance GetOrCreateCharacterInstance(string name)
         {
             name = name.Trim();
 
-            var instance = await _context.CharacterInstances
-                .FirstOrDefaultAsync(c => c.Name == name);
+            var instance = CharacterInstances
+        .FirstOrDefault(c => c.Name == name);
 
             if (instance != null)
                 return instance;
@@ -526,8 +548,8 @@ namespace StatisticsApi.Services
                 Name = name
             };
 
+            CharacterInstances.Add(instance);
             _context.CharacterInstances.Add(instance);
-            await _context.SaveChangesAsync();
             return instance;
         }
 
