@@ -326,7 +326,8 @@ namespace StatisticsApi.Services
             result.RoundsElapsed = battleRecordDto.RoundsElapsed;
             result.LevelEncountered = battleRecordDto.LevelEncountered;
             result.BattleInstance = GetOrCreateBattleInstance(battleRecordDto.Name, battleRecordDto.Tier);
-            result.WonBattle = battleRecordDto.WonBattle;
+            //For some reason these are backwards in the DTO
+            result.WonBattle = !battleRecordDto.WonBattle;
             _context.BattleRecords.Add(result);
             return result;
         }
