@@ -2,7 +2,9 @@
     <div class="font-semibold text-xl mb-4">Battle Statistics</div>
         <p-table
             [value]="battleStats?.battleObjects || []"
-            [loading]="loading">
+            [loading]="loading"
+            [paginator]="true"
+            [rows]="10">
             <ng-template #header>
                 <tr>
                         <th pSortableColumn="name" style="min-width: 12rem">
