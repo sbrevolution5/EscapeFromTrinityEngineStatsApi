@@ -4,17 +4,13 @@
 
 namespace StatisticsApi.Migrations
 {
+    /// <inheritdoc />
     public partial class characterinstancenullable : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            // Drop the existing FK constraint if it exists
-            migrationBuilder.Sql(@"
-                ALTER TABLE ""CardInstances""
-                DROP CONSTRAINT IF EXISTS ""FK_CardInstances_CharacterInstances_CharacterId"" CASCADE;
-            ");
-
-            // Ensure any invalid/placeholder character ids are cleared
+            // Ensure any invalid/placeholder character ids are cleared so the FK can be created
             migrationBuilder.Sql(@"
                 UPDATE ""CardInstances"" ci
                 SET ""CharacterId"" = NULL
@@ -31,7 +27,6 @@ namespace StatisticsApi.Migrations
                 WHERE ""CharacterId"" = 0;
             ");
 
-            // Make the column nullable
             migrationBuilder.AlterColumn<int>(
                 name: "CharacterId",
                 table: "CardInstances",
@@ -39,24 +34,10 @@ namespace StatisticsApi.Migrations
                 nullable: true,
                 oldClrType: typeof(int),
                 oldType: "integer");
-
-            // Recreate the FK constraint with ON DELETE SET NULL
-            migrationBuilder.Sql(@"
-                ALTER TABLE ""CardInstances""
-                ADD CONSTRAINT ""FK_CardInstances_CharacterInstances_CharacterId""
-                FOREIGN KEY (""CharacterId"")
-                REFERENCES ""CharacterInstances"" (""Id"")
-                ON DELETE SET NULL;
-            ");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@"
-                ALTER TABLE ""CardInstances""
-                DROP CONSTRAINT IF EXISTS ""FK_CardInstances_CharacterInstances_CharacterId"";
-            ");
-
             migrationBuilder.AlterColumn<int>(
                 name: "CharacterId",
                 table: "CardInstances",
@@ -66,14 +47,6 @@ namespace StatisticsApi.Migrations
                 oldClrType: typeof(int),
                 oldType: "integer",
                 oldNullable: true);
-
-            migrationBuilder.Sql(@"
-                ALTER TABLE ""CardInstances""
-                ADD CONSTRAINT ""FK_CardInstances_CharacterInstances_CharacterId""
-                FOREIGN KEY (""CharacterId"")
-                REFERENCES ""CharacterInstances"" (""Id"")
-                ON DELETE CASCADE;
-            ");
         }
     }
 }
