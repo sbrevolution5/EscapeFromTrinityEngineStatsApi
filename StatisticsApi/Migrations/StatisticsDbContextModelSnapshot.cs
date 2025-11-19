@@ -339,7 +339,7 @@ namespace StatisticsApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CharacterId")
+                    b.Property<int>("CharacterId")
                         .HasColumnType("integer");
 
                     b.Property<bool>("Junk")
