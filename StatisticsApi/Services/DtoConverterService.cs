@@ -524,7 +524,7 @@ namespace StatisticsApi.Services
             }
             else
             {
-                cardInstance.CharacterId = 0;
+                cardInstance.CharacterId = null;
                 cardInstance.Character = null;
             }
 
