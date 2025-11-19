@@ -23,7 +23,7 @@ namespace StatisticsApi.Services
         }
         public async Task<GameResult> GameResultFromDtoAsync(GameResultDto input)
         {
-            CardInstances = await _context.CardInstances.ToHashSetAsync();
+            CardInstances = await _context.CardInstances.Include(c=>c.CharacterInstance).ToHashSetAsync();
             PassiveInstances = await _context.PassiveInstances.ToHashSetAsync();
             BattleInstances = await _context.BattleInstances.ToHashSetAsync();
             EventInstances = await _context.EventInstances.ToHashSetAsync();
@@ -160,7 +160,7 @@ namespace StatisticsApi.Services
         private List<RewardJunkCards> GetJunkRewardsFromDto(RewardRecordDto dto, RewardRecord record)
         {
             var result = new List<RewardJunkCards>();
-            foreach (var item in dto.GivenTradeCards)
+            foreach (var item in dto.JunkRewards)
             {
                 result.Add(new RewardJunkCards()
                 {
@@ -230,7 +230,7 @@ namespace StatisticsApi.Services
             {
                 result.CardChoices.Add(GetCardChoiceCardInstance(choice, result));
             }
-            if (item.RerolledCards is not null && result.RerolledCards.Count > 0)
+            if (item.RerolledCards is not null && item.RerolledCards.Count > 0)
             {
                 foreach (var card in item.RerolledCards)
                 {
@@ -506,7 +506,7 @@ namespace StatisticsApi.Services
         {
             var result = new CardRecord();
 
-            result.CardInstance = GetOrCreateCardInstance(card.Name, card.Rarity,card.CharacterName);
+            result.CardInstance = GetOrCreateCardInstance(card.Name, card.Rarity, card.CharacterName);
             result.PartySlot = card.PartySlot;
             return result;
         }
@@ -576,7 +576,7 @@ namespace StatisticsApi.Services
             return instance;
         }
 
-        private CardInstance GetOrCreateCardInstance(string name, int rarity=-1, string? cName = null)
+        private CardInstance GetOrCreateCardInstance(string name, int rarity = -1, string? cName = null)
         {
             name = name.Trim();
 
@@ -588,9 +588,10 @@ namespace StatisticsApi.Services
                 {
                     instance.Rarity = rarity;
                 }
-                if (!string.IsNullOrEmpty(cName))
+                if (!string.IsNullOrWhiteSpace(cName) && cName != "junk" && (instance.CharacterInstance == null || instance.CharacterInstance.Name != cName))
                 {
                     instance.CharacterInstance = GetOrCreateCharacterInstance(cName);
+                    instance.CharacterInstanceId = instance.CharacterInstance.Id;
                 }
                 return instance;
             }
