@@ -66,8 +66,22 @@ export class CharacterPopularityComponent {
 			datasets: [
 				{
 					data: this.characterPopularityData?.characters.map((c) => c.plays) ?? [300, 500, 200],
-					backgroundColor: [documentStyle.getPropertyValue('--p-indigo-500'), documentStyle.getPropertyValue('--p-purple-500'), documentStyle.getPropertyValue('--p-teal-500')],
-					hoverBackgroundColor: [documentStyle.getPropertyValue('--p-indigo-400'), documentStyle.getPropertyValue('--p-purple-400'), documentStyle.getPropertyValue('--p-teal-400')]
+					backgroundColor: [
+						documentStyle.getPropertyValue('--p-indigo-500'),
+						documentStyle.getPropertyValue('--p-purple-500'),
+						documentStyle.getPropertyValue('--p-teal-500'),
+						documentStyle.getPropertyValue('--p-cyan-500'),
+						documentStyle.getPropertyValue('--p-orange-500'),
+						documentStyle.getPropertyValue('--p-pink-500')
+					],
+					hoverBackgroundColor: [
+						documentStyle.getPropertyValue('--p-indigo-400'),
+						documentStyle.getPropertyValue('--p-purple-400'),
+						documentStyle.getPropertyValue('--p-teal-400'),
+						documentStyle.getPropertyValue('--p-cyan-400'),
+						documentStyle.getPropertyValue('--p-orange-400'),
+						documentStyle.getPropertyValue('--p-pink-400')
+					]
 				}
 			]
 		};
