@@ -5,15 +5,20 @@ import { Pickedcardrow } from './pickedcardrow/pickedcardrow';
 import { GameResultService } from '@/services/game-result-service';
 import { PickRateService } from '@/services/pick-rate-service';
 import { map } from 'rxjs';
+import { DataView } from "primeng/dataview";
+import { CommonModule } from '@angular/common';
+import { TableModule } from "primeng/table";
+import { Select } from "primeng/select";
 
 @Component({
 	standalone: true,
 	selector: 'app-mostpickedcards',
-	imports: [Pickedcardrow],
+	imports: [Pickedcardrow, DataView, CommonModule, TableModule, Select],
 	templateUrl: './mostpickedcards.html',
 	styleUrl: './mostpickedcards.scss'
 })
 export class Mostpickedcards implements OnInit {
+    
 	@Input()
 	mostRecentVersionId!: number | undefined;
 	cardResults: any;
