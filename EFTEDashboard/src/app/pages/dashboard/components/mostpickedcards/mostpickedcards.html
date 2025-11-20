@@ -20,13 +20,13 @@
                 <div>
         <span
             class="text-surface-900 dark:text-surface-0 font-medium mr-2 mb-1 md:mb-0">{{cards.cardName}}</span>
-        <div class="mt-1 text-muted-color">{{cards.pickedCount}}/{{cards.availableCount}}</div>
+        <div class="mt-1 text-muted-color">{{cards.pickedCount}}/{{cards.availableCount}}   {{cards.characterName}}</div>
     </div>
             </td>
             <td>
                 @if(cards.availableCount > 0){
                 <div class="bg-surface-300 dark:bg-surface-500 rounded-border overflow-hidden w-40 lg:w-24" style="height: 8px">
-            <div class="bg-orange-500 h-full" style="width: {{cards.pickedCount/cards.availableCount*100}}%"></div>
+            <div class="bg-orange-500 h-full" [style.width.%]="cards.pickrate*100"></div>
         </div>
         <span
             class="text-orange-500 ml-4 font-medium">{{cards.pickedCount/cards.availableCount | percent :'1.2-2'}}</span>}
