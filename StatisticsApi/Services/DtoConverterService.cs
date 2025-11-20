@@ -222,7 +222,6 @@ namespace StatisticsApi.Services
             var result = new CardChoiceRecord();
             result.Version = GameVersion;
             result.VersionId = GameVersion.Id;
-            result.RerolledCards = new List<RerolledCardCardInstance>();
             result.UpgradePicked = item.UpgradePicked;
             result.CardPicked = GetOrCreateCardInstance(item.CardPicked);
             result.CardChoices = new List<CardChoiceCardInstance>();
@@ -230,6 +229,10 @@ namespace StatisticsApi.Services
             {
                 result.CardChoices.Add(GetCardChoiceCardInstance(choice, result));
             }
+            _context.CardChoiceRecords.Add(result);
+            _context.SaveChanges(); // Save to get the ID assigned
+            
+            result.RerolledCards = new List<RerolledCardCardInstance>();
             if (item.RerolledCards is not null && item.RerolledCards.Count > 0)
             {
                 foreach (var card in item.RerolledCards)
@@ -237,7 +240,6 @@ namespace StatisticsApi.Services
                     result.RerolledCards.Add(GetRerolledCardFromDto(card, result));
                 }
             }
-            _context.CardChoiceRecords.Add(result);
             return result;
         }
 
@@ -245,7 +247,7 @@ namespace StatisticsApi.Services
         {
             var result = new RerolledCardCardInstance()
             {
-                CardChoiceRecord = record,
+                CardChoiceRecordId = record.Id,
                 CardInstance = GetOrCreateCardInstance(card)
 
             };
@@ -259,9 +261,8 @@ namespace StatisticsApi.Services
 
             var result = new CardChoiceCardInstance()
             {
-                CardChoiceRecord = record,
+                CardChoiceRecordId = record.Id,
                 CardInstance = GetOrCreateCardInstance(choice)
-
             };
             _context.CardChoiceCards.Add(result);
             return result;

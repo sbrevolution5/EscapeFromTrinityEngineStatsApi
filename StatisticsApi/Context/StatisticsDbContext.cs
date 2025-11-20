@@ -130,9 +130,6 @@ namespace StatisticsApi.Context
             modelBuilder.Entity<CardChoiceCardInstance>(e =>
             {
                 e.HasKey(e => new { e.CardChoiceRecordId, e.CardInstanceId});
-                e.HasOne(e => e.CardChoiceRecord)
-                .WithMany(s => s.CardChoices)
-                .HasForeignKey(e => e.CardChoiceRecordId);
                 e.HasOne(e => e.CardInstance)
                 .WithMany()
                 .HasForeignKey(e => e.CardInstanceId);
@@ -140,9 +137,6 @@ namespace StatisticsApi.Context
             modelBuilder.Entity<RerolledCardCardInstance>(e =>
             {
                 e.HasKey(e => new { e.CardChoiceRecordId, e.CardInstanceId});
-                e.HasOne(e => e.CardChoiceRecord)
-                .WithMany(s => s.RerolledCards)
-                .HasForeignKey(e => e.CardChoiceRecordId);
                 e.HasOne(e => e.CardInstance)
                 .WithMany()
                 .HasForeignKey(e => e.CardInstanceId);

@@ -40,6 +40,11 @@ namespace StatisticsApi.Extensions
                         .ThenInclude(r => r.CardPicked)
                 .Include(g => g.Rooms)
                     .ThenInclude(r => r.RewardRecord)
+                        .ThenInclude(rr => rr.CardChoiceRecords)
+                        .ThenInclude(r => r.RerolledCards)
+                        .ThenInclude(c => c.CardInstance)
+                .Include(g => g.Rooms)
+                    .ThenInclude(r => r.RewardRecord)
                         .ThenInclude(rr => rr.PassiveRecords)
                         .ThenInclude(r => r.PassiveInstance)
                 .Include(g => g.Rooms)
@@ -64,7 +69,9 @@ namespace StatisticsApi.Extensions
                         .ThenInclude(c => c.CardInstance)
                 .Include(g => g.Rooms)
                     .ThenInclude(r => r.RewardRecord)
-                        .ThenInclude(rr => rr.JunkRewards);
+                        .ThenInclude(rr => rr.JunkRewards)
+                        .ThenInclude(r => r.CardRecord)
+                        .ThenInclude(c => c.CardInstance);
         }
         public static IQueryable<GameResult> IncludeBattleRecordDetails(
     this IQueryable<GameResult> query)
@@ -101,11 +108,12 @@ namespace StatisticsApi.Extensions
         }
         public static IQueryable<GameResult> IncludeCharacterDetails(this IQueryable<GameResult> query)
         {
-
             return query.Include(g => g.Characters)
                     .ThenInclude(c => c.CharacterInstance)
-                    .Include(g=>g.Characters)
-                    .ThenInclude(c=>c.DeckRecord);   
+                    .Include(g => g.Characters)
+                    .ThenInclude(c => c.DeckRecord)
+                    .ThenInclude(d => d.CardInstance)
+                    .ThenInclude(ci => ci.CharacterInstance);
         }
         public static IQueryable<GameResult> IncludePassiveDetails(this IQueryable<GameResult> query)
         {

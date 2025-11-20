@@ -10,8 +10,7 @@ namespace EscapeFromTrinityEngineStats.Models.Relationships
     public class RerolledCardCardInstance
     {
         public int CardChoiceRecordId { get; set; }
-        public CardChoiceRecord CardChoiceRecord { get; set; }
         public int CardInstanceId { get; set; }
-        public CardInstance CardInstance { get; set; }
+        public virtual CardInstance CardInstance { get; set; }
     }
 }
