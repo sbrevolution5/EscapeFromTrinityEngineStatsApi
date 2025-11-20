@@ -11,7 +11,7 @@ namespace StatisticsApi.Controllers
 {
     [ApiController]
     
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class GameResultController : ControllerBase
     {
         private readonly StatisticsDbContext _dbContext;
