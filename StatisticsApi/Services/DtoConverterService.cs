@@ -164,7 +164,7 @@ namespace StatisticsApi.Services
             {
                 result.Add(new RewardJunkCards()
                 {
-                    RewardRecord = record,
+                    RewardRecordId = record.Id,
                     CardRecord = GetCardRecordFromDto(item)
 
                 });
@@ -181,7 +181,7 @@ namespace StatisticsApi.Services
             {
                 result.Add(new RewardRemovedCards()
                 {
-                    RewardRecord = record,
+                    RewardRecordId = record.Id,
                     CardRecord = GetCardRecordFromDto(item)
 
                 });
@@ -197,7 +197,7 @@ namespace StatisticsApi.Services
             {
                 result.Add(new RewardUpgradedCards()
                 {
-                    RewardRecord = record,
+                    RewardRecordId = record.Id,
                     CardRecord = GetCardRecordFromDto(item)
 
                 });
@@ -273,7 +273,7 @@ namespace StatisticsApi.Services
             {
                 result.Add(new RewardRecievedTradeCards()
                 {
-                    RewardRecord = record,
+                    RewardRecordId = record.Id,
                     CardRecord = GetCardRecordFromDto(item)
 
                 });
@@ -289,7 +289,7 @@ namespace StatisticsApi.Services
             {
                 result.Add(new RewardGivenTradeCards()
                 {
-                    RewardRecord = record,
+                    RewardRecordId = record.Id,
                     CardRecord = GetCardRecordFromDto(item)
 
                 });
