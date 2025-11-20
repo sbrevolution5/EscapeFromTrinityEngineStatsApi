@@ -94,9 +94,6 @@ namespace StatisticsApi.Context
             modelBuilder.Entity<RewardGivenTradeCards>(e =>
             {
                 e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
-                e.HasOne(e => e.RewardRecord)
-                .WithMany(s => s.GivenTradeCards)
-                .HasForeignKey(e => e.RewardRecordId);
                 e.HasOne(e => e.CardRecord)
                 .WithMany()
                 .HasForeignKey(e => e.CardRecordId);
@@ -104,22 +101,14 @@ namespace StatisticsApi.Context
             modelBuilder.Entity<RewardJunkCards>(e =>
             {
                 e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
-                e.HasOne(e => e.RewardRecord)
-                .WithMany(s => s.JunkRewards)
-                .HasForeignKey(e => e.RewardRecordId)
-                .OnDelete(DeleteBehavior.Cascade);
                 e.HasOne(e => e.CardRecord)
                 .WithMany()
                 .HasForeignKey(e => e.CardRecordId)
                 .OnDelete(DeleteBehavior.Cascade);
-
             });
             modelBuilder.Entity<RewardUpgradedCards>(e =>
             {
                 e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
-                e.HasOne(e => e.RewardRecord)
-                .WithMany(s => s.UpgradedCards)
-                .HasForeignKey(e => e.RewardRecordId);
                 e.HasOne(e => e.CardRecord)
                 .WithMany()
                 .HasForeignKey(e => e.CardRecordId);
@@ -127,9 +116,6 @@ namespace StatisticsApi.Context
             modelBuilder.Entity<RewardRecievedTradeCards>(e =>
             {
                 e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
-                e.HasOne(e => e.RewardRecord)
-                .WithMany(s => s.RecievedTradeCards)
-                .HasForeignKey(e => e.RewardRecordId);
                 e.HasOne(e => e.CardRecord)
                 .WithMany()
                 .HasForeignKey(e => e.CardRecordId);
@@ -137,9 +123,6 @@ namespace StatisticsApi.Context
             modelBuilder.Entity<RewardRemovedCards>(e =>
             {
                 e.HasKey(e => new { e.RewardRecordId, e.CardRecordId});
-                e.HasOne(e => e.RewardRecord)
-                .WithMany(s => s.RemovedCards)
-                .HasForeignKey(e => e.RewardRecordId);
                 e.HasOne(e => e.CardRecord)
                 .WithMany()
                 .HasForeignKey(e => e.CardRecordId);

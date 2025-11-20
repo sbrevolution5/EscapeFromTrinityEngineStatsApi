@@ -9,7 +9,6 @@ namespace EscapeFromTrinityEngineStats.Models.Relationships
     public class RewardRemovedCards
     {
         public int RewardRecordId { get; set; }
-        public RewardRecord RewardRecord { get; set; }
         public int CardRecordId { get; set; }
         public CardRecord CardRecord { get; set; }
     }
