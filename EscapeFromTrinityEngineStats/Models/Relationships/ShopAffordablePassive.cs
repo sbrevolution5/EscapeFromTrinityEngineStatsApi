@@ -10,9 +10,7 @@ namespace EscapeFromTrinityEngineStats.Models.Relationships
     public class ShopAffordablePassive
     {
         public int ShopRecordId { get; set; }
-        public ShopRecord ShopRecord { get; set; }
-
         public int PassiveInstanceId { get; set; }
-        public PassiveInstance PassiveInstance { get; set; }
+        public virtual PassiveInstance PassiveInstance { get; set; }
     }
 }

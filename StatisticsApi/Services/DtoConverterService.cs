@@ -416,7 +416,7 @@ namespace StatisticsApi.Services
             {
                 result.Add(new ShopAffordableCard()
                 {
-                    ShopRecord = record,
+                    ShopRecordId = record.Id,
                     CardInstance = GetOrCreateCardInstance(item)
 
                 });
@@ -431,7 +431,7 @@ namespace StatisticsApi.Services
             {
                 result.Add(new ShopAffordablePassive()
                 {
-                    ShopRecord = record,
+                    ShopRecordId = record.Id,
                     PassiveInstance = GetOrCreatePassiveInstance(item)
 
                 });
@@ -446,7 +446,7 @@ namespace StatisticsApi.Services
             {
                 result.Add(new ShopPurchasedPassive()
                 {
-                    ShopRecord = record,
+                    ShopRecordId = record.Id,
                     PassiveInstance = GetOrCreatePassiveInstance(item)
 
 
@@ -462,7 +462,7 @@ namespace StatisticsApi.Services
             {
                 result.Add(new ShopPurchasedCard()
                 {
-                    ShopRecord = record,
+                    ShopRecordId = record.Id,
                     CardInstance = GetOrCreateCardInstance(item)
                 });
             }

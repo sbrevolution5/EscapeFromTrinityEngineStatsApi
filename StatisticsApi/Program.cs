@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using StatisticsApi.Context;
 using StatisticsApi.Data;
 using StatisticsApi.Services;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,11 @@ builder.Services.AddScoped<IDashboardDataService, DashboardDataService>();
 builder.Services.AddScoped<ICardPickRateService, CardPickRateService>();
 builder.Services.AddScoped<IBattleFetchService,BattleFetchService>();
 builder.Services.AddScoped<ICharacterFetchService, CharacterFetchService>();
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+});
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {

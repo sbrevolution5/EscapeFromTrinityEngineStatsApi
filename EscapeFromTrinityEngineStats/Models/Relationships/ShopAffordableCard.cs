@@ -10,9 +10,7 @@ namespace EscapeFromTrinityEngineStats.Models.Relationships
     public class ShopAffordableCard
     {
         public int ShopRecordId { get; set; }
-        public ShopRecord ShopRecord { get; set; }
-
         public int CardInstanceId { get; set; }
-        public CardInstance CardInstance { get; set; }
+        public virtual CardInstance CardInstance { get; set; }
     }
 }

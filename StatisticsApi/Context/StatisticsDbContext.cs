@@ -54,39 +54,30 @@ namespace StatisticsApi.Context
             modelBuilder.Entity<ShopAffordableCard>(e =>
             {
                 e.HasKey(e => new { e.ShopRecordId, e.CardInstanceId });
-                e.HasOne(e => e.ShopRecord)
-                .WithMany(s => s.AffordableCards)
-                .HasForeignKey(e => e.ShopRecordId);
                 e.HasOne(e => e.CardInstance)
                 .WithMany()
                 .HasForeignKey(e => e.CardInstanceId);
             });
+
             modelBuilder.Entity<ShopAffordablePassive>(e =>
             {
                 e.HasKey(e => new { e.ShopRecordId, e.PassiveInstanceId });
-                e.HasOne(e => e.ShopRecord)
-                .WithMany(s => s.AffordablePassives)
-                .HasForeignKey(e => e.ShopRecordId);
                 e.HasOne(e => e.PassiveInstance)
                 .WithMany()
                 .HasForeignKey(e => e.PassiveInstanceId);
             });
+
             modelBuilder.Entity<ShopPurchasedCard>(e =>
             {
                 e.HasKey(e => new { e.ShopRecordId, e.CardInstanceId });
-                e.HasOne(e => e.ShopRecord)
-                .WithMany(s => s.PurchasedCards)
-                .HasForeignKey(e => e.ShopRecordId);
                 e.HasOne(e => e.CardInstance)
                 .WithMany()
                 .HasForeignKey(e => e.CardInstanceId);
             });
+
             modelBuilder.Entity<ShopPurchasedPassive>(e =>
             {
                 e.HasKey(e => new { e.ShopRecordId, e.PassiveInstanceId });
-                e.HasOne(e => e.ShopRecord)
-                .WithMany(s => s.PurchasedPassives)
-                .HasForeignKey(e => e.ShopRecordId);
                 e.HasOne(e => e.PassiveInstance)
                 .WithMany()
                 .HasForeignKey(e => e.PassiveInstanceId);

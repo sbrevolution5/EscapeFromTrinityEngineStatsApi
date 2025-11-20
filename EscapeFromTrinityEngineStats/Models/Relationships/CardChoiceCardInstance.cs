@@ -10,7 +10,6 @@ namespace EscapeFromTrinityEngineStats.Models.Relationships
     public class CardChoiceCardInstance
     {
         public int CardChoiceRecordId { get; set; }
-        public CardChoiceRecord CardChoiceRecord { get; set; }
         public int CardInstanceId { get; set; }
         public CardInstance CardInstance { get; set; }
     }
