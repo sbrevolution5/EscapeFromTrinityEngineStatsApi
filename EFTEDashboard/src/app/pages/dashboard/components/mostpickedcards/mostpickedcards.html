@@ -8,6 +8,8 @@
         <th pSortableColumn="cardName">Card Name
             <p-sortIcon field="cardName"></p-sortIcon>
         </th>
+        <th pSortableColumn="characterName">Character Name
+            <p-sortIcon field="characterName"></p-sortIcon></th>
         <th>Pick Rate</th>
 
     </tr>
@@ -20,8 +22,11 @@
                 <div>
         <span
             class="text-surface-900 dark:text-surface-0 font-medium mr-2 mb-1 md:mb-0">{{cards.cardName}}</span>
-        <div class="mt-1 text-muted-color">{{cards.pickedCount}}/{{cards.availableCount}}   {{cards.characterName}}</div>
+        <div class="mt-1 text-muted-color">{{cards.pickedCount}}/{{cards.availableCount}}  </div>
     </div>
+            </td>
+            <td>
+                <div class="mt-2 md:mt-0 flex items-center">{{cards.characterName}}</div>
             </td>
             <td>
                 @if(cards.availableCount > 0){
