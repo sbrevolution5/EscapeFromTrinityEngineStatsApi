@@ -1,5 +1,6 @@
 ﻿using EscapeFromTrinityEngineStats.Models.Instances;
 using EscapeFromTrinityEngineStats.Models.Relationships;
+using System.Text.Json.Serialization;
 
 namespace EscapeFromTrinityEngineStats.Models
 {
@@ -8,6 +9,7 @@ namespace EscapeFromTrinityEngineStats.Models
         public int Id { get; set; }
         public int VersionId { get; set; }
 
+        [JsonIgnore]
         public virtual GameVersion Version { get; set; }
         public virtual List<CardChoiceCardInstance> CardChoices { get; set; } = [];
         public virtual CardInstance CardPicked { get; set; } 
@@ -18,6 +20,5 @@ namespace EscapeFromTrinityEngineStats.Models
         public bool UpgradePicked { get; set; }
         public bool DuplicatePicked { get; set; }
         public int TeamworkSpent { get; set; }
-
     }
 }

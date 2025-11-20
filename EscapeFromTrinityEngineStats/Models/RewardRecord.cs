@@ -1,5 +1,6 @@
 ﻿using EscapeFromTrinityEngineStats.Models.InputDto;
 using EscapeFromTrinityEngineStats.Models.Relationships;
+using System.Text.Json.Serialization;
 
 namespace EscapeFromTrinityEngineStats.Models
 {
@@ -8,6 +9,7 @@ namespace EscapeFromTrinityEngineStats.Models
         public int Id { get; set; }
         public int VersionId { get; set; }
 
+        [JsonIgnore]
         public virtual GameVersion Version { get; set; }
 
         public int GoldGained { get; set; }

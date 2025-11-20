@@ -1,4 +1,5 @@
 ﻿using EscapeFromTrinityEngineStats.Models.Instances;
+using System.Text.Json.Serialization;
 
 namespace EscapeFromTrinityEngineStats.Models
 {
