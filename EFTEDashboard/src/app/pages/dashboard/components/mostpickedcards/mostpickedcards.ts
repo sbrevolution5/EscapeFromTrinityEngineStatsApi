@@ -5,10 +5,10 @@ import { Pickedcardrow } from './pickedcardrow/pickedcardrow';
 import { GameResultService } from '@/services/game-result-service';
 import { PickRateService } from '@/services/pick-rate-service';
 import { map } from 'rxjs';
-import { DataView } from "primeng/dataview";
+import { DataView } from 'primeng/dataview';
 import { CommonModule } from '@angular/common';
-import { TableModule } from "primeng/table";
-import { Select } from "primeng/select";
+import { TableModule } from 'primeng/table';
+import { Select } from 'primeng/select';
 
 @Component({
 	standalone: true,
@@ -18,7 +18,6 @@ import { Select } from "primeng/select";
 	styleUrl: './mostpickedcards.scss'
 })
 export class Mostpickedcards implements OnInit {
-    
 	@Input()
 	mostRecentVersionId!: number | undefined;
 	cardResults: any;
@@ -43,8 +42,8 @@ export class Mostpickedcards implements OnInit {
 									pickedCount: Number(pr?.pickedCount ?? pr?.PickedCount ?? 0)
 								}))
 							: [];
-						this.cardResults = mapped;
 						console.log('raw', raw);
+						this.cardResults = mapped.filter((cr) => cr.availableCount > 0);
 						console.log('mapped', this.cardResults);
 					},
 					error: (err) => {
