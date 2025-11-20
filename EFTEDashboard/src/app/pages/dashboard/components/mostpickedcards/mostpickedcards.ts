@@ -9,6 +9,7 @@ import { DataView } from 'primeng/dataview';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { Select } from 'primeng/select';
+import { MostPickedCardsDisplay } from '@/interfaces/display/most-picked-cards-display';
 
 @Component({
 	standalone: true,
@@ -32,14 +33,16 @@ export class Mostpickedcards implements OnInit {
 				.subscribe({
 					next: (raw: any) => {
 						// Map API response array to CardPickRateDto[] (API returns camelCase properties)
-						const mapped: CardPickRateDto[] = Array.isArray(raw)
+						const mapped: MostPickedCardsDisplay[] = Array.isArray(raw)
 							? raw.map((pr: any) => ({
 									versionId: Number(pr?.versionId ?? pr?.VersionId ?? 0),
 									versionName: String(pr?.versionName ?? pr?.VersionName ?? ''),
 									cardInstanceId: Number(pr?.cardInstanceId ?? pr?.CardInstanceId ?? 0),
 									cardName: String(pr?.cardName ?? pr?.CardName ?? ''),
 									availableCount: Number(pr?.availableCount ?? pr?.AvailableCount ?? 0),
-									pickedCount: Number(pr?.pickedCount ?? pr?.PickedCount ?? 0)
+									pickedCount: Number(pr?.pickedCount ?? pr?.PickedCount ?? 0),
+									characterName: String(pr?.characterName ?? pr?.CharacterName ?? ''),
+									pickrate: Number(pr?.availableCount ?? pr?.AvailableCount ?? 0) > 0 ? Number(pr?.pickedCount ?? pr?.PickedCount ?? 0) / Number(pr?.availableCount ?? pr?.AvailableCount ?? 1) : 0
 								}))
 							: [];
 						console.log('raw', raw);
@@ -51,6 +54,15 @@ export class Mostpickedcards implements OnInit {
 						this.cardResults = [];
 					}
 				});
+		}
+	}
+	getPickrateColorClass(pickrate: number): string {
+		if (pickrate >= 0.3 && pickrate <= 0.7) {
+			return 'bg-green-500';
+		} else if ((pickrate >= 0.2 && pickrate < 0.3) || (pickrate > 0.7 && pickrate <= 0.8)) {
+			return 'bg-yellow-500';
+		} else {
+			return 'bg-red-500';
 		}
 	}
 }
