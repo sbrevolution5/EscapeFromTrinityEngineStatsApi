@@ -14,21 +14,21 @@
                                 <!-- <p-columnFilter type="text" field="name" display="menu" placeholder="Search by name"></p-columnFilter> -->
                             </div>
                         </th>
-                        <th pSortableColumn="tier" style="min-width: 12rem">
+                        <th pSortableColumn="tier" style="min-width: 4rem">
                             <div class="flex justify-between items-center">
                                 Tier
                                 <p-sortIcon field="tier"></p-sortIcon>
                                 <!-- <p-columnFilter type="text" field="country.name" display="menu" placeholder="Search by country"></p-columnFilter> -->
                             </div>
                         </th>
-                        <th pSortableColumn="winrate" style="min-width: 14rem">
+                        <th pSortableColumn="winrate" style="min-width: 3rem">
                             Winrate
                             <p-sortIcon field="winrate"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="averageTurns" style="min-width: 10rem">
+                        <!-- <th pSortableColumn="averageTurns" style="min-width: 2rem">
                             AverageTurns
                             <p-sortIcon field="averageTurns"></p-sortIcon>
-                        </th>
+                        </th> -->
                         <th pSortableColumn="averageCardsPlayed">Average Cards Played
                             <p-sortIcon field="averageCardsPlayed"></p-sortIcon>
                         </th>
@@ -38,21 +38,21 @@
                         <th pSortableColumn="averageDamageDealt">Average Damage Dealt
                             <p-sortIcon field="averageDamageDealt"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="averageDamageInactive">Average Damage Inactive
+                        <!-- <th pSortableColumn="averageDamageInactive">Average Damage Inactive
                             <p-sortIcon field="averageDamageInactive"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="averageTeamworkGained">AverageTeamworkGained
+                        </th> -->
+                        <th pSortableColumn="averageTeamworkGained">Average Teamwork Gained
                             <p-sortIcon field="averageTeamworkGained"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="averageFloor">Average Floor
+                        <!-- <th pSortableColumn="averageFloor">Average Floor
                             <p-sortIcon field="averageFloor"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="restingRatio">Resting Ratio
+                        </th> -->
+                        <!-- <th pSortableColumn="restingRatio">Resting Ratio
                             <p-sortIcon field="restingRatio"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="characterDownedRatio">CharacterDownedRatio
+                        </th> -->
+                        <!-- <th pSortableColumn="characterDownedRatio">Character Downed Ratio
                             <p-sortIcon field="characterDownedRatio"></p-sortIcon>
-                        </th>
+                        </th> -->
                 </tr>
             </ng-template>
             <ng-template #body let-battle>
@@ -60,15 +60,15 @@
                     <td>{{ battle.name }}</td>
                     <td>{{ battle.tier }}</td>
                     <td>{{ battle.winrate | percent:'1.2-2' }}</td>
-                    <td>{{ battle.averageTurns | number:'1.2-2' }}</td>
+                    <!-- <td>{{ battle.averageTurns | number:'1.2-2' }}</td> -->
                     <td>{{ battle.averageCardsPlayed | number:'1.2-2' }}</td>
                     <td>{{ battle.averageDamageTaken | number:'1.2-2' }}</td>
                     <td>{{ battle.averageDamageDealt | number:'1.2-2' }}</td>
-                    <td>{{ battle.averageDamageInactive | number:'1.2-2' }}</td>
+                    <!-- <td>{{ battle.averageDamageInactive | number:'1.2-2' }}</td> -->
                     <td>{{ battle.averageTeamworkGained | number:'1.2-2' }}</td>
-                    <td>{{ battle.averageFloor | number:'1.2-2' }}</td>
-                    <td>{{ battle.restingRatio | percent:'1.2-2' }}</td>
-                    <td>{{ battle.characterDownedRatio | percent:'1.2-2' }}</td>
+                    <!-- <td>{{ battle.averageFloor | number:'1.2-2' }}</td> -->
+                    <!-- <td>{{ battle.restingRatio | percent:'1.2-2' }}</td> -->
+                    <!-- <td>{{ battle.characterDownedRatio | percent:'1.2-2' }}</td> -->
                 </tr>
             </ng-template>
 <ng-template #emptymessage>

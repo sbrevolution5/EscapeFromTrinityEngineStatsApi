@@ -14,7 +14,7 @@ import { BattleRecordService } from '@/services/battle-record-service';
 
 @Component({
 	selector: 'app-battle-stats-component',
-	imports: [TableModule, IconField, InputIcon, MultiSelect, Select, Slider, DatePipe, Tag, ProgressBar, PercentPipe, DecimalPipe],
+	imports: [TableModule,  PercentPipe, DecimalPipe],
 	templateUrl: './battle-stats-component.html',
 	styleUrl: './battle-stats-component.scss'
 })
