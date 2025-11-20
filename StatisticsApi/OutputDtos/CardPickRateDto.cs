@@ -10,5 +10,6 @@ namespace StatisticsApi.OutputDtos
         public string CardName { get; set; } = string.Empty;
         public int AvailableCount { get; set; }
         public int PickedCount { get; set; }
+        public string CharacterName { get; set; } = string.Empty;
     }
 }
