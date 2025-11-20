@@ -6,5 +6,6 @@ namespace StatisticsApi.Services
     {
         Task<List<GameResult>> GameResultsForVersion(string version);
         Task<GameResult> GetSingleGameResult(int Id);
+        Task<List<GameResult>> GetAllGameResultsAsync();
     }
 }

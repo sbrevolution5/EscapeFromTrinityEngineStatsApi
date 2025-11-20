@@ -36,7 +36,7 @@ namespace StatisticsApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<GameResult>> GetAllResults()
         {
-            List<GameResult> res = await _fetchData.GameResultsForVersion("abc");
+            List<GameResult> res = await _fetchData.GetAllGameResultsAsync();
             return res;
         }
     }
