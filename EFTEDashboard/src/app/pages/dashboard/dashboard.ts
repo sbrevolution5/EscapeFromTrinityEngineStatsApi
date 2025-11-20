@@ -10,11 +10,12 @@ import { map } from 'rxjs';
 import { GameVersion } from '@/interfaces/game-version';
 import { CharacterPopularityComponent } from './components/character-popularity-component/character-popularity-component';
 import { BattleStatsComponent } from './components/battle-stats-component/battle-stats-component';
+import { SingleGame } from "../games/single-game/single-game";
 
 @Component({
 	selector: 'app-dashboard',
 	standalone: true,
-	imports: [CommonModule, StatsWidget, BestSellingWidget, Mostpickedcards, CharacterPopularityComponent, BattleStatsComponent],
+	imports: [CommonModule, StatsWidget, BestSellingWidget, Mostpickedcards, CharacterPopularityComponent, BattleStatsComponent, SingleGame],
 	template: `
 		<div class="grid grid-cols-12 gap-8">
 			@if (dashStats != null) {
@@ -24,6 +25,7 @@ import { BattleStatsComponent } from './components/battle-stats-component/battle
 				@if (currentVersion != null) {
 					<app-mostpickedcards [mostRecentVersionId]="currentVersion"></app-mostpickedcards>
 				}
+                <app-single-game></app-single-game>
 				<!-- <app-best-selling-widget></app-best-selling-widget> -->
 			</div>
 			<div class="col-span-12 xl:col-span-6">
