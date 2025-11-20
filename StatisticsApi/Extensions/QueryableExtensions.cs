@@ -91,7 +91,27 @@ namespace StatisticsApi.Extensions
                 .IncludeBattleRecordDetails()
                 .IncludeEventRecordDetails();
         }
+        public static IQueryable<GameResult> IncludeAllSubRecords(this IQueryable<GameResult> query)
+        {
+            return query
+                .Include(g => g.GameVersion)
+                .IncludeCharacterDetails()
+                .IncludePassiveDetails()
+                .IncludeAllRoomRecords();
+        }
+        public static IQueryable<GameResult> IncludeCharacterDetails(this IQueryable<GameResult> query)
+        {
 
+            return query.Include(g => g.Characters)
+                    .ThenInclude(c => c.CharacterInstance)
+                    .Include(g=>g.Characters)
+                    .ThenInclude(c=>c.DeckRecord);   
+        }
+        public static IQueryable<GameResult> IncludePassiveDetails(this IQueryable<GameResult> query)
+        {
+            return query.Include(g => g.Passives)
+                    .ThenInclude(p => p.PassiveInstance);
+        }
 
     }
 

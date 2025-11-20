@@ -16,7 +16,7 @@ namespace StatisticsApi.Services
         }
         public async Task<List<GameResult>> GetAllGameResultsAsync()
         {
-            return await _dbContext.GameResults.IncludeAllRoomRecords().ToListAsync();
+            return await _dbContext.GameResults.IncludeAllSubRecords().ToListAsync();
         }
 
         public async Task<List<GameResult>> GameResultsForVersion(string version)
