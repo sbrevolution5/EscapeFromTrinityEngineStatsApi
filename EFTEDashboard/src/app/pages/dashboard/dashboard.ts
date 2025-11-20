@@ -24,7 +24,7 @@ import { BattleStatsComponent } from './components/battle-stats-component/battle
 				@if (currentVersion != null) {
 					<app-mostpickedcards [mostRecentVersionId]="currentVersion"></app-mostpickedcards>
 				}
-				<app-best-selling-widget></app-best-selling-widget>
+				<!-- <app-best-selling-widget></app-best-selling-widget> -->
 			</div>
 			<div class="col-span-12 xl:col-span-6">
 				<app-character-popularity-component></app-character-popularity-component>
