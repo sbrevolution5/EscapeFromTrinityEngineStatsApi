@@ -35,7 +35,7 @@ export class NodeService {
 			},
 			{
 				label: 'rooms',
-				children: this.getRoomTreeFromRoomRecord(gameResult.rooms?.sort((a,b)=> (a.floorNumber ?? 0) - (b.floorNumber ?? 0)) || [])
+				children: this.getRoomTreeFromRoomRecord(gameResult.rooms?.sort((a, b) => (a.floorNumber ?? 0) - (b.floorNumber ?? 0)) || [])
 			}
 		);
 
@@ -54,16 +54,18 @@ export class NodeService {
 			children: []
 		};
 		if (r.shopRecord) {
-			res.label = `Shop Room ${r.levelNumber || ''} - ${r.floorNumber || ''}`;
+			res.label = `Shop Room ${(r.levelNumber ?? 0) + 1} - ${(r.floorNumber ?? 0) + 1}`;
 			res.children = this.getShopTreeFromShopRecord(r.shopRecord);
 			console.log('shop record found in room', r.id, r.shopRecord);
 		} else if (r.eventRecord) {
-			res.label = `Event: ${r.eventRecord.eventInstance?.name || 'Unknown Event'} ${r.levelNumber || ''} - ${r.floorNumber || ''}`;
+			res.label = `Event: ${r.eventRecord.eventInstance?.name || 'Unknown Event'} ${(r.levelNumber ?? 0) + 1} - ${(r.floorNumber ?? 0) + 1}`;
 			console.log('event record found in room', r.id, r.eventRecord);
 		} else if (r.battleRecord) {
-			res.label = `${r.battleRecord.battleInstance?.name || 'Unknown Battle'} ${r.levelNumber || ''} - ${r.floorNumber || ''}`;
+			res.label = `${r.battleRecord.battleInstance?.name || 'Unknown Battle'} ${(r.levelNumber ?? 0) + 1} - ${(r.floorNumber ?? 0) + 1}`;
 			res.children = this.getBattleTreeFromBattleRecord(r.battleRecord);
 			console.log('battle record found in room', r.id, r.battleRecord);
+		} else {
+			res.label = `Treasure room ${(r.levelNumber ?? 0) + 1} - ${(r.floorNumber ?? 0) + 1}`;
 		}
 		if (r.rewardRecord) {
 			res.children?.push(this.getRewardTreeFromRewardRecord(r.rewardRecord));
@@ -76,70 +78,68 @@ export class NodeService {
 			label: 'Reward',
 			children: []
 		};
-        if (rewardRecord.cardChoiceRecords && rewardRecord.cardChoiceRecords.length > 0) {
-            res.children?.push({label: 'card choices', children: rewardRecord.cardChoiceRecords?.map(c=>this.getRewardChoiceNodeFromCardChoiceRecord(c)) || []});
-        }
-        if (rewardRecord.passiveRecords && rewardRecord.passiveRecords.length > 0) {
-            res.children?.push({label: 'passives', children: rewardRecord.passiveRecords?.map(p=>({label: p.passiveInstance?.name || 'Unknown Passive'})) || []});
-        }
+		if (rewardRecord.cardChoiceRecords && rewardRecord.cardChoiceRecords.length > 0) {
+			res.children?.push({ label: 'card choices', children: rewardRecord.cardChoiceRecords?.map((c) => this.getRewardChoiceNodeFromCardChoiceRecord(c)) || [] });
+		}
+		if (rewardRecord.passiveRecords && rewardRecord.passiveRecords.length > 0) {
+			res.children?.push({ label: 'passives', children: rewardRecord.passiveRecords?.map((p) => ({ label: p.passiveInstance?.name || 'Unknown Passive' })) || [] });
+		}
 		return res;
 	}
-    getRewardChoiceNodeFromCardChoiceRecord(c: CardChoiceRecord): TreeNode {
-        var res: TreeNode = {
-            label: `${c.cardPicked?.name || 'Unknown Card'}`,
-            children: [
-                ...c.cardChoices?.map(card=>({label: card?.name || 'Unknown Card'})) || [],
-            ]
-        };
-        return res;
-    }
+	getRewardChoiceNodeFromCardChoiceRecord(c: CardChoiceRecord): TreeNode {
+		var res: TreeNode = {
+			label: `${c.cardPicked?.name || 'Unknown Card'}`,
+			children: [...(c.cardChoices?.map((card) => ({ label: card?.name || 'Unknown Card' })) || [])]
+		};
+		return res;
+	}
 	getBattleTreeFromBattleRecord(battleRecord: BattleRecord): TreeNode<any>[] {
 		var res: TreeNode<any>[] = [];
-        if(!battleRecord.characterResting)
-        {
-            battleRecord.characterResting = -1;
-        }
-        if (battleRecord.characterResting != 0) {
-            res.push({
-                label: 'character 1',
-                children: [
-                    {label: 'damage taken', data: ((battleRecord.character1HpStart??0) - (battleRecord.character1HpEnd?? 0)).toString()},
-                    {label: 'Cards played', data: (battleRecord.character1CardsPlayed??0).toString()},
-                    {label: 'Damage dealt', data: (battleRecord.character1DamageDealt??0).toString()},
-                    {label: 'downed?', data: (battleRecord.character1Downed ? 'Yes' : 'No')}
-                ]
-            })
-        }
-        if (battleRecord.characterResting != 1) {
-            res.push({
-                label: 'character 2',
-                children: [
-                    {label: 'damage taken', data: ((battleRecord.character2HpStart??0) - (battleRecord.character2HpEnd?? 0)).toString()},
-                    {label: 'Cards played', data: (battleRecord.character2CardsPlayed??0).toString()},
-                    {label: 'Damage dealt', data: (battleRecord.character2DamageDealt??0).toString()},
-                    {label: 'downed?', data: (battleRecord.character2Downed ? 'Yes' : 'No')}
-                ]
-            })
-        }
-        if (battleRecord.characterResting != 2) {
-            res.push({
-                label: 'character 3',
-                children: [
-                    {label: 'damage taken', data: ((battleRecord.character3HpStart??0) - (battleRecord.character3HpEnd?? 0)).toString()},
-                    {label: 'Cards played', data: (battleRecord.character3CardsPlayed??0).toString()},
-                    {label: 'Damage dealt', data: (battleRecord.character3DamageDealt??0).toString()},
-                    {label: 'downed?', data: (battleRecord.character3Downed ? 'Yes' : 'No')}
-                ]
-            })
-        }
-        res.push({
-            label: 'teamwork Gained', data: ((battleRecord.teamworkStart??0) - (battleRecord.teamworkEnd?? 0)).toString()
-        })
-        res.push({
-            label: 'rounds elapsed', data: (battleRecord.roundsElapsed??0).toString()
-        })
-        return res;
-
+		if (!battleRecord.characterResting) {
+			battleRecord.characterResting = -1;
+		}
+		if (battleRecord.characterResting != 0) {
+			res.push({
+				label: 'character 1',
+				children: [
+					{ label: 'damage taken', data: ((battleRecord.character1HpStart ?? 0) - (battleRecord.character1HpEnd ?? 0)).toString() },
+					{ label: 'Cards played', data: (battleRecord.character1CardsPlayed ?? 0).toString() },
+					{ label: 'Damage dealt', data: (battleRecord.character1DamageDealt ?? 0).toString() },
+					{ label: 'downed?', data: battleRecord.character1Downed ? 'Yes' : 'No' }
+				]
+			});
+		}
+		if (battleRecord.characterResting != 1) {
+			res.push({
+				label: 'character 2',
+				children: [
+					{ label: 'damage taken', data: ((battleRecord.character2HpStart ?? 0) - (battleRecord.character2HpEnd ?? 0)).toString() },
+					{ label: 'Cards played', data: (battleRecord.character2CardsPlayed ?? 0).toString() },
+					{ label: 'Damage dealt', data: (battleRecord.character2DamageDealt ?? 0).toString() },
+					{ label: 'downed?', data: battleRecord.character2Downed ? 'Yes' : 'No' }
+				]
+			});
+		}
+		if (battleRecord.characterResting != 2) {
+			res.push({
+				label: 'character 3',
+				children: [
+					{ label: 'damage taken', data: ((battleRecord.character3HpStart ?? 0) - (battleRecord.character3HpEnd ?? 0)).toString() },
+					{ label: 'Cards played', data: (battleRecord.character3CardsPlayed ?? 0).toString() },
+					{ label: 'Damage dealt', data: (battleRecord.character3DamageDealt ?? 0).toString() },
+					{ label: 'downed?', data: battleRecord.character3Downed ? 'Yes' : 'No' }
+				]
+			});
+		}
+		res.push({
+			label: 'teamwork Gained',
+			data: ((battleRecord.teamworkStart ?? 0) - (battleRecord.teamworkEnd ?? 0)).toString()
+		});
+		res.push({
+			label: 'rounds elapsed',
+			data: (battleRecord.roundsElapsed ?? 0).toString()
+		});
+		return res;
 	}
 	getShopTreeFromShopRecord(shopRecord: ShopRecord): TreeNode<any>[] {
 		var res: TreeNode<any>[] = [];
