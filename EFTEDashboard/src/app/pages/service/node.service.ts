@@ -35,7 +35,19 @@ export class NodeService {
 			},
 			{
 				label: 'rooms',
-				children: this.getRoomTreeFromRoomRecord(gameResult.rooms?.sort((a, b) => (a.floorNumber ?? 0) - (b.floorNumber ?? 0)) || [])
+				children: this.getRoomTreeFromRoomRecord(
+					gameResult.rooms?.sort((a, b) => {
+						let levelA = a.levelNumber ?? 0;
+						let levelB = b.levelNumber ?? 0;
+						let floorA = a.floorNumber ?? 0;
+						let floorB = b.floorNumber ?? 0;
+						if (levelA > levelB) return 1;
+						if (levelA < levelB) return -1;
+						if (floorA > floorB) return 1;
+						if (floorA < floorB) return -1;
+						return 0;
+					})
+				)
 			}
 		);
 
