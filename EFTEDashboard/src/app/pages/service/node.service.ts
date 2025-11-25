@@ -35,7 +35,7 @@ export class NodeService {
 			},
 			{
 				label: 'rooms',
-				children: this.getRoomTreeFromRoomRecord(gameResult.rooms) || []
+				children: this.getRoomTreeFromRoomRecord(gameResult.rooms?.sort((a,b)=> (a.floorNumber ?? 0) - (b.floorNumber ?? 0)) || [])
 			}
 		);
 
