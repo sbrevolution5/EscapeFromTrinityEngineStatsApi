@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { Select } from 'primeng/select';
 import { MostPickedCardsDisplay } from '@/interfaces/display/most-picked-cards-display';
+import { PickrateColorBar } from '@/services/pickrate-color-bar';
 
 @Component({
 	standalone: true,
@@ -23,7 +24,7 @@ export class Mostpickedcards implements OnInit {
 	mostRecentVersionId!: number | undefined;
 	cardResults: any;
 
-	constructor(private pickRateService: PickRateService) {}
+	constructor(private pickRateService: PickRateService, private pickrateColorBar: PickrateColorBar) {}
 
 	ngOnInit() {
 		if (this.mostRecentVersionId != null) {
@@ -57,12 +58,6 @@ export class Mostpickedcards implements OnInit {
 		}
 	}
 	getPickrateColorClass(pickrate: number): string {
-		if (pickrate >= 0.3 && pickrate <= 0.7) {
-			return 'bg-green-500';
-		} else if ((pickrate >= 0.2 && pickrate < 0.3) || (pickrate > 0.7 && pickrate <= 0.8)) {
-			return 'bg-yellow-500';
-		} else {
-			return 'bg-red-500';
-		}
+		return this.pickrateColorBar.getPickrateColorClass(pickrate);
 	}
 }
